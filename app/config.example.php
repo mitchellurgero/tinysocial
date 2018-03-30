@@ -3,8 +3,9 @@
 $config = array(
 	"siteName"			=> "TinySocial!",									// Default site name
 	"siteDesc"			=> "Flat File social network!",						// Default site description
-	"databaseName"		=> "/var/www/html/codiad/workspaces/databases",		// database location
-	"databaseLocation"	=> "tinysocial",									// database name
+	"sitePath"			=> "http://192.168.1.12/codiad/workspace/tinysocial/", //where is the site located (host and path!) - use a trailing slash!
+	"databaseLocation"	=> "/var/www/html/codiad/workspace/databases",		// database location
+	"databaseName"		=> "tinysocial",									// database name
 	"timezone"			=> "America/Chicago",								//set site default timezone
 	"registration"		=> true,											//Allow registration
 	
