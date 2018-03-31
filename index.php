@@ -57,6 +57,7 @@ if(empty($elements[0])) {
 	    <meta name="author" content="<?php echo $config['siteName']; ?>">
 	    <title><?php echo $config['siteName']; ?></title>
 	    <link href="<?php echo $config['sitePath']; ?>css/bootstrap.min.css" rel="stylesheet">
+	    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
 	    <style>
 	    	html {
 			  position: relative;

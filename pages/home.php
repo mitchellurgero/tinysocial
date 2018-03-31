@@ -6,6 +6,34 @@
 	<div class="col-8">
 		<div class="border-bottom">
 			<h2>Welcome to <?php echo $config['siteName'];?></h2>
+			<p><?php echo $config['siteDesc']; ?></p>
+		</div>
+		<br>
+		<div class="row text-center">
+			<div class="col">
+				<p><i class="fa fa-comments fa-5x"></i></p>
+				<p class="lead">Community Driven</p>
+				<p></p>
+			</div>
+			<div class="col">
+				<p><i class="fa fa-file-code fa-5x"></i></p>
+				<p class="lead">Open Source</p>
+				<p></p>
+			</div>
+			<div class="col">
+				<p><i class="fa fa-hdd fa-5x"></i></p>
+				<p class="lead">Small Footprint</p>
+				<p></p>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="col-1">
+				
+			</div>
+			<div class="col">
+				<p class="lead">Currently have <?php echo count($db->check_table("users"))." users with ".count($db->check_table("posts"))." posts."; ?></p>
+			</div>
 		</div>
 	</div>
 	<div class="col-4">
