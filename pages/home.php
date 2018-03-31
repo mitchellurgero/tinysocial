@@ -32,7 +32,7 @@
 				
 			</div>
 			<div class="col">
-				<p class="lead">Currently have <?php echo count($db->check_table("users"))." users with ".count($db->check_table("posts"))." posts."; ?></p>
+				<p class="lead">Currently have <?php echo ($db->check_table("users") - 1)." users with ".($db->check_table("posts") - 1)." posts."; ?></p>
 			</div>
 		</div>
 	</div>

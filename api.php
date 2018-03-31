@@ -62,7 +62,8 @@ switch(cleanstring($_POST['type'])){
 					"password"		=> $hash,
 					"email"			=> $email,
 					"name"			=> $name,
-					"profilePic"	=> $profilepic
+					"profilePic"	=> $profilepic,
+					"friends"		=> json_encode(array(""=>"")),
 					);
 					if($db->insert("users", json_encode($data))){
 						$_SESSION['message'] = "User $username created! Please login to continue!";
@@ -142,7 +143,29 @@ switch(cleanstring($_POST['type'])){
 		}
 		break;
 	case "add":
-		
+		//time to add to friends list
+		if(!isset($_POST['friend'])){
+			break;
+		}
+		$f = cleanstring($_POST['friend']);
+		$user = $db->select("users","username",$_SESSION['username']);
+		$user = array_values($user);
+		$user = $user[0];
+		$friends = json_decode($user['friends']);
+		if(!empty($friends)){
+			if(in_array($f, $friends)){
+				break;
+			}
+			$tuser = $db->select("users","username",$f);
+			$tuser = array_values($tuser);
+			$tuser = $tuser[0];
+			if(!empty($tuser)){
+				$friends[] = $f;
+				$nF = json_encode($friends);
+				$ndata = json_encode(array("friends"=>$nf));
+				$db->insert("users",$ndata,$user['row_id']);
+			}
+		}
 		break;
 	case "remove":
 		
