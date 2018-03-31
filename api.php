@@ -3,7 +3,6 @@
 if (!isset($_SESSION)) {
     session_start();
 };
-session_regenerate_id(true);
 require_once("app/includes.php");
 define("TINY", TRUE);
 $ver = new QuickGit();
@@ -15,7 +14,7 @@ if($config['debug']){
 	ini_set('display_startup_errors', 1);
 	error_reporting(E_ALL);
 }
-$location = $config['sitePath'];
+$location = ltrim($config['sitePath'],"/");
 //Connect and install if needed.
 $db = new JSONDatabase($config['databaseName'], $config['databaseLocation']);
 
@@ -30,6 +29,9 @@ if(cleanstring($_POST['type']) !== "register" && cleanstring($_POST['type']) !==
 }
 switch(cleanstring($_POST['type'])){
 	case "register":
+		if(!$config['registration']){
+			die("Registration is DISABLED.");
+		}
 		//Check if username is taken:
 		if(isset($_POST['username'],$_POST['name'],$_POST['email'],$_POST['password1'],$_POST['password2'])){
 			$name = cleanstring($_POST['name']);
@@ -83,10 +85,61 @@ switch(cleanstring($_POST['type'])){
 		}
 		break;
 	case "login":
-		
+		//Need to login now
+		if(isset($_POST['username'], $_POST['password'])){
+			//Check given password:
+			$username = cleanstring($_POST['username']);
+			$password = $_POST['password'];
+			$user = $db->select("users","username",$username);
+			if(count($user) === 1){
+				$user = array_values($user);
+				$user = $user[0];
+				//Found user, compare password.
+				if(password_verify($password,$user['password'])){
+					$_SESSION['username'] = $user['username'];
+					$_SESSION['profilePic'] = $user['profilePic'];
+					$_SESSION['friends'] = $user['friends'];
+					$_SESSION['name'] = $user['name'];
+					session_regenerate_id(true);
+					header("Location: $location/page/dash");
+					die();
+				} else {
+					$_SESSION['error'] = "The username or password entered is incorrect.";
+					header("Location: $location/page/home");
+					die();
+				}
+			} else {
+				$_SESSION['error'] = "INTERNAL ERROR.";
+				header("Location: $location/page/home");
+				die();
+			}
+		} else {
+			$_SESSION['error'] = "The username or password entered is incorrect.";
+			header("Location: $location/page/home");
+			die();
+		}
 		break;
 	case "post":
-		
+		//Nice
+		if(isset($_POST['data'])){
+			//Will need to pre-process post but for quick test...
+			$id = bin2hex(random_bytes(24));
+			$data = array(
+				"post"		=> cleanstring($_POST['data']),
+				"author"	=> $_SESSION['username'],
+				"date"		=> date('m-d-Y h:i:s a'),
+				"likes"		=> 0,
+				"post_id"	=> $id,
+				);
+			if(!$db->insert("posts", json_encode($data))){
+				$_SESSION['error'] = "Error posting, please try again!";
+				header("Location: $location/page/dash");
+				die();
+			} else {
+				header("Location: $location/post/$id");
+				die();
+			}
+		}
 		break;
 	case "add":
 		

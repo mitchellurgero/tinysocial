@@ -109,7 +109,7 @@ if(empty($elements[0])) {
 			<?php
 		}
 		?>
-
+		<br>
 		<div class="container-fluid">
 		<?php
 		if($args['type']){
@@ -127,7 +127,35 @@ if(empty($elements[0])) {
 					
 					break;
 				case "post":
+					//Display post!
+					$post = $db->select("posts","post_id", cleanstring($args['page']));
+					if(count($post) === 1){
+						//Found post, let's continue
+						$post = array_values($post);
+						$post = $post[0];
+						?>
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<div class="card">
+							<div class="card-body">
+								<h4 class="card-title">Post by <?php echo '<a href="'.$config['sitePath'].'user/'.$post['author'].'">'.$post['author'].'</a>'; ?></h4>
+								<p class="card-text"><?php echo $post['post'];?></p>
+								<a href="#" class="card-link">Like</a>
+								<a href="#" class="card-link">Comment</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<p>Comments here soon.</p>
+					</div>
 					
+				</div>
+			</div>
+						<?php
+					}
 					break;
 				default:
 					//oops! Not found!
