@@ -6,11 +6,7 @@
 $user = $db->select("users","username",$_SESSION['username']);
 $user = array_values($user);
 $user = $user[0];
-if(!isset($_SESSION['friends'])){
-	//Get friends array
-	$_SESSION['friends'] = json_decode($user['friends'],TRUE);
-	echo json_last_error();
-}
+$friends = json_decode($user['friends']);
 $location = ltrim($config['sitePath'],"/");
 $pcount = $db->check_table("posts");
 $pfinal = array();
@@ -32,8 +28,7 @@ for($i=1; $i<=($pcount + 1); $i++){
     	$t = array_values($t);
     	$t = $t[0];
     	if(isset($t['author'])){
-    		echo "<pre>".var_dump($_SESSION)."</pre>";
-    		if($t['author'] === $_SESSION['username'] || (in_array($t['author'], $_SESSION['friends']))){
+    		if($t['author'] === $_SESSION['username'] || (in_array($t['author'], $friends))){
 	    		$pfinal[] = $t;
 	    	} else {
 	    		

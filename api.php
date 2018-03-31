@@ -14,7 +14,7 @@ if($config['debug']){
 	ini_set('display_startup_errors', 1);
 	error_reporting(E_ALL);
 }
-$location = ltrim($config['sitePath'],"/");
+$location = rtrim($config['sitePath'],"/");
 //Connect and install if needed.
 $db = new JSONDatabase($config['databaseName'], $config['databaseLocation']);
 
@@ -63,7 +63,7 @@ switch(cleanstring($_POST['type'])){
 					"email"			=> $email,
 					"name"			=> $name,
 					"profilePic"	=> $profilepic,
-					"friends"		=> json_encode(array(""=>"")),
+					"friends"		=> json_encode(array("")),
 					);
 					if($db->insert("users", json_encode($data))){
 						$_SESSION['message'] = "User $username created! Please login to continue!";
@@ -92,9 +92,9 @@ switch(cleanstring($_POST['type'])){
 			$username = cleanstring($_POST['username']);
 			$password = $_POST['password'];
 			$user = $db->select("users","username",$username);
-			if(count($user) === 1){
-				$user = array_values($user);
-				$user = $user[0];
+			$user = array_values($user);
+			$user = $user[0];
+			if(!empty($user)){
 				//Found user, compare password.
 				if(password_verify($password,$user['password'])){
 					$_SESSION['username'] = $user['username'];
@@ -110,7 +110,7 @@ switch(cleanstring($_POST['type'])){
 					die();
 				}
 			} else {
-				$_SESSION['error'] = "INTERNAL ERROR.";
+				$_SESSION['error'] = "The username or password entered is incorrect.";
 				header("Location: $location/page/home");
 				die();
 			}
@@ -145,30 +145,75 @@ switch(cleanstring($_POST['type'])){
 	case "add":
 		//time to add to friends list
 		if(!isset($_POST['friend'])){
+			header("Location: $location/user/".$_POST['friend']);
+			die();
 			break;
 		}
+		//Clean string and get current users friend list
 		$f = cleanstring($_POST['friend']);
 		$user = $db->select("users","username",$_SESSION['username']);
 		$user = array_values($user);
 		$user = $user[0];
 		$friends = json_decode($user['friends']);
-		if(!empty($friends)){
-			if(in_array($f, $friends)){
-				break;
-			}
-			$tuser = $db->select("users","username",$f);
-			$tuser = array_values($tuser);
-			$tuser = $tuser[0];
-			if(!empty($tuser)){
-				$friends[] = $f;
-				$nF = json_encode($friends);
-				$ndata = json_encode(array("friends"=>$nf));
-				$db->insert("users",$ndata,$user['row_id']);
+		if(in_array($f, $friends)){
+			header("Location: $location/user/".$_POST['friend']);
+			die();
+			break;
+		}
+		//check if requested friend exists as user.
+		$tuser = $db->select("users","username",$f);
+		$tuser = array_values($tuser);
+		$tuser = $tuser[0];
+		if(!empty($tuser)){
+			$friends[] = $f;
+			$nF = json_encode($friends);
+			$user['friends'] = $nF;
+			if($db->insert("users",json_encode($user),$user['row_id'])){
+				$_SESSION['message'] = "Added $f as a friend!";
+			} else {
+				$_SESSION['error'] = "There was an error adding $f as a friend. ".json_last_error();
 			}
 		}
+		header("Location: $location/user/$f");
+		die();
 		break;
 	case "remove":
-		
+		//time to add to friends list
+		if(!isset($_POST['friend'])){
+			header("Location: $location/user/".$_POST['friend']);
+			die();
+			break;
+		}
+		//Clean string and get current users friend list
+		$f = cleanstring($_POST['friend']);
+		$user = $db->select("users","username",$_SESSION['username']);
+		$user = array_values($user);
+		$user = $user[0];
+		$friends = json_decode($user['friends']);
+		if(!in_array($f, $friends)){
+			header("Location: $location/user/".$_POST['friend']);
+			die();
+			break;
+		}
+		//check if requested friend exists as user.
+		$tuser = $db->select("users","username",$f);
+		$tuser = array_values($tuser);
+		$tuser = $tuser[0];
+		if(!empty($tuser)){
+			if (($key = array_search($f, $friends)) !== false) {
+    			unset($friends[$key]);
+			}
+			$nF = json_encode($friends);
+			$user['friends'] = $nF;
+			if($db->insert("users",json_encode($user),$user['row_id'])){
+				$_SESSION['message'] = "Removed $f from friends!";
+			} else {
+				$_SESSION['error'] = "There was an error removing $f as a friend. ".json_last_error();
+			}
+		}
+		header("Location: $location/user/$f");
+		die();
+		break;
 		break;
 	default:
 		

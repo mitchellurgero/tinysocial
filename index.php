@@ -129,11 +129,12 @@ $location = ltrim($config['sitePath'],"/");
 				//Get current user infomation from db
 				$uname = cleanstring($args['page']);
 				$user = $db->select("users","username",$uname);
-				if($user == false || count($user) > 1){
-					break;
-				}
 				$user = array_values($user);
 				$user = $user[0];
+				if($user == false || empty($user)){
+					break;
+				}
+				
 				$friends = array();
 				$location = ltrim($config['sitePath'],"/");
 				$pcount = $db->check_table("posts");
@@ -178,8 +179,22 @@ $location = ltrim($config['sitePath'],"/");
 			<div class="col-12">
 				<form action="<?php echo $config['sitePath']."api.php"?>" method="POST">
 					<?php
-					if(in_array($user['username'], $_SESSION['friends'])){
-						
+					$userT = $db->select("users","username",$_SESSION['username']);
+					$userT = array_values($userT);
+					$userT = $userT[0];
+					$friends = json_decode($userT['friends']);
+					if(in_array($user['username'], $friends)){
+						?>
+						<input type="hidden" name="type" value="remove">
+						<input type="hidden" name="friend" value="<?php echo $user['username']; ?>">
+						<button type="submit" class="btn btn-sm btn-warning">Remove Friend</button>
+						<?php
+					} else {
+						?>
+						<input type="hidden" name="type" value="add">
+						<input type="hidden" name="friend" value="<?php echo $user['username']; ?>">
+						<button type="submit" class="btn btn-sm btn-primary">Add Friend</button>
+						<?php
 					}
 					?>
 				</form>
@@ -213,7 +228,7 @@ $location = ltrim($config['sitePath'],"/");
 		</div>
 		<div class="row">
 			<div class="col-12">
-				<div class="border-bottom"><h3>Timeline</h3></div>
+				<div class="border-bottom"><h3>User Timeline</h3></div>
 				<?php
 				if(!empty($pfinal)){
 					foreach($pfinal as $post){
@@ -248,10 +263,11 @@ $location = ltrim($config['sitePath'],"/");
 				case "post":
 					//Display post!
 					$post = $db->select("posts","post_id", cleanstring($args['page']));
-					if(count($post) === 1){
+					$post = array_values($post);
+					$post = $post[0];
+					if(!empty($post)){
 						//Found post, let's continue
-						$post = array_values($post);
-						$post = $post[0];
+						
 						?>
 			<div class="container">
 				<div class="row">
@@ -287,7 +303,7 @@ $location = ltrim($config['sitePath'],"/");
 		</div>
 <footer class="footer">
 	<div class="container">
-		<span class="text-muted">Place sticky footer content here.</span>
+		<span class="text-muted">MIT Licnesed | Copyrigth &copy; 2018 <a href="https://urgero.org">Mitchell Urgero</a></span>
 	</div>
 </footer>
 <script
