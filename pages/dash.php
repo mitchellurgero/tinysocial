@@ -39,9 +39,9 @@ for($i=1; $i<=($pcount + 1); $i++){
 //:D
 ?>
 <div class="row">
-	<div class="col-3">
+	<div class="col-md-3">
 		<div class="row">
-			<div class="col-12">
+			<div class="col-md-12">
 				<div class="text-center">
 					<img src="<?php echo $location."/files/".$user['profilePic']; ?>" class="img-fluid img-thumbnail">
 				</div>
@@ -49,7 +49,7 @@ for($i=1; $i<=($pcount + 1); $i++){
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-12">
+			<div class="col-md-12">
 				<p class="lead">New Post:</p>
 				<form class="form" action="<?php echo $config['sitePath']."api.php"?>" method="POST">
 					<input type="hidden" name="type" value="post">
@@ -59,9 +59,9 @@ for($i=1; $i<=($pcount + 1); $i++){
 			</div>
 		</div>
 	</div>
-	<div class="col-9">
+	<div class="col-md-9">
 		<div class="row">
-			<div class="col">
+			<div class="col-md-12">
 							<?php
 		if(isset($_SESSION['error'])){
 			echo '
@@ -97,9 +97,8 @@ for($i=1; $i<=($pcount + 1); $i++){
 								<div class="card-body">
 									<h4 class="card-title">Post by <?php echo '<a href="'.$config['sitePath'].'user/'.$post['author'].'">'.$post['author'].'</a> <small>at '.$post['date'].''; ?></small></h4>
 									<p class="card-text"><?php echo $post['post'];?></p>
-									<a href="#" class="card-link">Like</a>
-									<a href="#" class="card-link">Comment</a>
-									<a href="<?php echo $config['sitePath'].'post/'.$post['post_id']; ?>" class="card-link">View Full</a>
+									<a href="#" class="card-link btn btn-sm btn-info">Like (<?php echo $post['likes']; ?>)</a>
+									<a href="<?php echo $config['sitePath'].'post/'.$post['post_id']; ?>" class="card-link btn btn-sm btn-info">View Full</a>
 								</div>
 							</div>
 						</div>

@@ -214,6 +214,29 @@ switch(cleanstring($_POST['type'])){
 		header("Location: $location/user/$f");
 		die();
 		break;
+	case "comment":
+		$post_id = cleanstring($_POST['post_id']);
+		//Do some more cleaning but for now:
+		$data = array(
+				"post"		=> cleanstring($_POST['data']),
+				"author"	=> $_SESSION['username'],
+				"date"		=> date('m-d-Y h:i:s a'),
+				"post_id"	=> $post_id,
+				);
+		//Before allowing comment, check that post exists.
+		$fatherPost = $db->select("posts","post_id",$post_id);
+		if(count($fatherPost) > 0){
+			//Post exists, let's comment
+			if($db->insert("comments", json_encode($data))){
+				$_SESSION['message'] = "Comment saved!";
+			} else {
+				$_SESSION['error'] = "Could not save comment!";
+			}
+		} else {
+			$_SESSION['error'] = "Cannot comment on a non-existant post.";
+		}
+		header("Location: $location/post/$post_id");
+		die();
 		break;
 	default:
 		

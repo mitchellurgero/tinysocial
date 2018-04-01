@@ -166,9 +166,9 @@ $location = ltrim($config['sitePath'],"/");
 				//:D
 				?>
 <div class="row">
-	<div class="col-3">
+	<div class="col-md-3">
 		<div class="row">
-			<div class="col-12">
+			<div class="col-md-12">
 				<div class="text-center">
 					<img src="<?php echo $location."/files/".$user['profilePic']; ?>" class="img-fluid img-thumbnail">
 				</div>
@@ -176,7 +176,7 @@ $location = ltrim($config['sitePath'],"/");
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-12">
+			<div class="col-md-12">
 				<form action="<?php echo $config['sitePath']."api.php"?>" method="POST">
 					<?php
 					$userT = $db->select("users","username",$_SESSION['username']);
@@ -201,9 +201,9 @@ $location = ltrim($config['sitePath'],"/");
 			</div>
 		</div>
 	</div>
-	<div class="col-9">
+	<div class="col-md-9">
 		<div class="row">
-			<div class="col">
+			<div class="col-md-12">
 							<?php
 		if(isset($_SESSION['error'])){
 			echo '
@@ -227,20 +227,19 @@ $location = ltrim($config['sitePath'],"/");
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-12">
+			<div class="col-md-12">
 				<div class="border-bottom"><h3>User Timeline</h3></div>
 				<?php
 				if(!empty($pfinal)){
 					foreach($pfinal as $post){
 						?>
 					<div class="row">
-						<div class="col">
+						<div class="col-md-12">
 							<div class="card">
 								<div class="card-body">
 									<h4 class="card-title">Post by <?php echo '<a href="'.$config['sitePath'].'user/'.$post['author'].'">'.$post['author'].'</a> <small>at '.$post['date'].''; ?></small></h4>
 									<p class="card-text"><?php echo $post['post'];?></p>
 									<a href="#" class="card-link">Like</a>
-									<a href="#" class="card-link">Comment</a>
 									<a href="<?php echo $config['sitePath'].'post/'.$post['post_id']; ?>" class="card-link">View Full</a>
 								</div>
 							</div>
@@ -270,21 +269,90 @@ $location = ltrim($config['sitePath'],"/");
 						
 						?>
 			<div class="container">
+											<?php
+		if(isset($_SESSION['error'])){
+			echo '
+<div class="alert alert-danger" role="alert">
+<strong>Oh snap!</strong> '.$_SESSION['error'].'
+</div>
+			';
+			unset($_SESSION['error']);
+		}
+		?>
+		<?php
+		if(isset($_SESSION['message'])){
+			echo '
+<div class="alert alert-info" role="alert">
+<strong>Notice: </strong> '.$_SESSION['message'].'
+</div>
+			';
+			unset($_SESSION['message']);
+		}
+		?>
 				<div class="row">
-					<div class="col">
+					<div class="col-md-12">
 						<div class="card">
 							<div class="card-body">
-								<h4 class="card-title">Post by <?php echo '<a href="'.$config['sitePath'].'user/'.$post['author'].'">'.$post['author'].'</a>'; ?></h4>
+								<h4 class="card-title">Post by <?php echo '<a href="'.$config['sitePath'].'user/'.$post['author'].'">'.$post['author'].'</a><small> at '.$post['date'].'</small>'; ?></h4>
 								<p class="card-text"><?php echo $post['post'];?></p>
-								<a href="#" class="card-link">Like</a>
-								<a href="#" class="card-link">Comment</a>
+								<a href="#" class="card-link btn btn-sm btn-info">Like (<?php echo $post['likes']; ?>)</a>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="row">
-					<div class="col">
-						<p>Comments here soon.</p>
+					<div class="col-md-12">
+						<br>
+						<div class="row border-bottom">
+							<div class="col-md-12">
+								<form class="form" action="<?php echo $config['sitePath']."api.php";?>" method="POST">
+									<input type="hidden" name="type" value="comment">
+									<input type="hidden" name="post_id" value="<?php echo $post['post_id'];?>">
+									<textarea id="data" name="data" rows="2" required class="form-control"></textarea>
+									<button class="btn btn-primary float-right">Comment!</button>
+									<br>
+								</form>
+							</div>
+						</div>
+						<br>
+						<div class="row">
+							<div class="col-md-12">
+								<?php
+								$comments = $db->select("comments","post_id",$post['post_id'], false);
+								if(count($comments) > 0){
+									foreach($comments as $comment){
+										?>
+								<div class="row">
+									<div class="col-md-12">
+										<div class="card">
+											<div class="card-body">
+												<h4 class="card-title">Comment by <?php echo '<a href="'.$config['sitePath'].'user/'.$comment['author'].'">'.$comment['author'].'</a><small> at '.$comment['date'].'</small>'; ?></h4>
+												<p class="card-text"><?php echo $comment['post'];?></p>
+											</div>
+										</div>
+									</div>
+								</div>
+								<br>
+										<?php
+									}
+								} else {
+									echo '<p class="lead text-center">No comments on this post yet!</p>';
+								}
+								?>
+							</div>
+						</div>
+						<br>
+						<div class="row border-top">
+							<div class="col-md-12">
+								<form class="form" action="<?php echo $config['sitePath']."api.php";?>" method="POST">
+									<input type="hidden" name="type" value="comment">
+									<input type="hidden" name="post_id" value="<?php echo $post['post_id'];?>">
+									<textarea id="data" name="data" rows="2" required class="form-control"></textarea>
+									<button class="btn btn-primary float-right">Comment!</button>
+									<br>
+								</form>
+							</div>
+						</div>
 					</div>
 					
 				</div>
