@@ -22,7 +22,7 @@
 			</div>
 			<div class="col">
 				<p><i class="fa fa-hdd fa-5x"></i></p>
-				<p class="lead">Small Footprint</p>
+				<p class="lead">No Database Required</p>
 				<p></p>
 			</div>
 		</div>
