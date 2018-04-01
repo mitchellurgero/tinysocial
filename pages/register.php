@@ -2,10 +2,10 @@
 <?php Event::handle('PageLoad',array(&$_SESSION));?>
 <br>
 <div class="row">
-	<div class="col-4">
+	<div class="col-md-4">
 
 	</div>
-	<div class="col-4">
+	<div class="col-md-4">
 		<h3><?php echo $lang['registerFor'];?> <?php echo $config['siteName']; ?></h3>
 		<p class="lead"></p>
 		<?php
@@ -52,7 +52,7 @@
 				</div>
 			</div>
 	</div>
-	<div class="col-4">
+	<div class="col-md-4">
 
 	</div>
 	
