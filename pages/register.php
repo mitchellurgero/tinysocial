@@ -6,7 +6,7 @@
 
 	</div>
 	<div class="col-4">
-		<h3>Register for <?php echo $config['siteName']; ?></h3>
+		<h3><?php echo $lang['registerFor'];?> <?php echo $config['siteName']; ?></h3>
 		<p class="lead"></p>
 		<?php
 		if(isset($_SESSION['error'])){
@@ -20,33 +20,33 @@
 		?>
 			<div class="card card-outline-secondary">
 				<div class="card-header">
-				    <h3 class="mb-0">Sign Up</h3>
+				    <h3 class="mb-0"><?php echo $lang['signUp'];?></h3>
 				</div>
 				<div class="card-body">
 				    <form class="form" role="form" autocomplete="off" action="<?php echo $config['sitePath']."api.php";?>" method="POST">
 				    	<input type="hidden" name="type" value="register">
 				    	<div class="form-group">
-				            <label for="username">Username</label>
-				            <input type="text" class="form-control" id="username" name="username" placeholder="username" required="">
+				            <label for="username"><?php echo $lang['usernameTxt'];?></label>
+				            <input type="text" class="form-control" id="username" name="username" placeholder="<?php echo $lang['usernameTxt'];?>" required="">
 				        </div>
 				        <div class="form-group">
-				            <label for="name">Name</label>
-				            <input type="text" class="form-control" id="name" name="name" placeholder="Full name" required="">
+				            <label for="name"><?php echo $lang['nameTxt'];?></label>
+				            <input type="text" class="form-control" id="name" name="name" placeholder="<?php echo $lang['nameTxt'];?>" required="">
 				        </div>
 				        <div class="form-group">
-				            <label for="email">Email</label>
-				            <input type="email" class="form-control" id="email" name="email" placeholder="Email" required="">
+				            <label for="email"><?php echo $lang['emailTxt'];?></label>
+				            <input type="email" class="form-control" id="email" name="email" placeholder="<?php echo $lang['emailTxt'];?>" required="">
 				        </div>
 				        <div class="form-group">
-				            <label for="password1">Password</label>
-				            <input type="password" class="form-control" id="password1" name="password1" placeholder="Password" required="">
+				            <label for="password1"><?php echo $lang['passwordTxt'];?></label>
+				            <input type="password" class="form-control" id="password1" name="password1" placeholder="<?php echo $lang['passwordTxt'];?>" required="">
 				        </div>
 				        <div class="form-group">
-				            <label for="password2">Verify Password</label>
-				            <input type="password" class="form-control" id="password2" name="password2" placeholder="Password (again)" required="">
+				            <label for="password2"><?php echo $lang['passwordTxt2'];?></label>
+				            <input type="password" class="form-control" id="password2" name="password2" placeholder="<?php echo $lang['passwordTxt2'];?>" required="">
 				        </div>
 				        <div class="form-group">
-				            <button type="submit" class="btn btn-success btn-lg float-right">Register</button>
+				            <button type="submit" class="btn btn-success btn-lg float-right"><?php echo $lang['registerBtn'];?></button>
 				        </div>
 				    </form>
 				</div>

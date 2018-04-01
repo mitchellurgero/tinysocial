@@ -92,7 +92,7 @@ $location = ltrim($config['sitePath'],"/");
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item"><a class="nav-link" href="<?php echo $config['sitePath']; ?>page/home/">Home</a></li>
+				<li class="nav-item"><a class="nav-link" href="<?php echo $config['sitePath']; ?>page/home/"><?php echo $lang['homeLink'];?></a></li>
 			</ul>
 			</div>
 		</nav>
@@ -106,9 +106,9 @@ $location = ltrim($config['sitePath'],"/");
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
-				<li class="nav-item"><a class="nav-link" href="<?php echo $config['sitePath']; ?>page/dash/">Dashboard</a></li>
-				<li class="nav-item"><a class="nav-link" href="<?php echo $config['sitePath']; ?>page/settings/">Settings</a></li>
-				<li class="nav-item"><a class="nav-link" href="<?php echo $config['sitePath']; ?>logout.php">Logout</a></li>
+				<li class="nav-item"><a class="nav-link" href="<?php echo $config['sitePath']; ?>page/dash/"><?php echo $lang['dashboardLink'];?></a></li>
+				<li class="nav-item"><a class="nav-link" href="<?php echo $config['sitePath']; ?>page/settings/"><?php echo $lang['settingsLink'];?></a></li>
+				<li class="nav-item"><a class="nav-link" href="<?php echo $config['sitePath']; ?>logout.php"><?php echo $lang['logoutLink'];?></a></li>
 			</ul>
 			</div>
 		</nav>
@@ -191,13 +191,13 @@ $location = ltrim($config['sitePath'],"/");
 						?>
 						<input type="hidden" name="type" value="remove">
 						<input type="hidden" name="friend" value="<?php echo $user['username']; ?>">
-						<button type="submit" class="btn btn-sm btn-warning">Remove Friend</button>
+						<button type="submit" class="btn btn-sm btn-warning"><?php echo $lang['removeFriend'];?></button>
 						<?php
 					} else {
 						?>
 						<input type="hidden" name="type" value="add">
 						<input type="hidden" name="friend" value="<?php echo $user['username']; ?>">
-						<button type="submit" class="btn btn-sm btn-primary">Add Friend</button>
+						<button type="submit" class="btn btn-sm btn-primary"><?php echo $lang['addFriend'];?></button>
 						<?php
 					}
 					?>
@@ -232,19 +232,21 @@ $location = ltrim($config['sitePath'],"/");
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-				<div class="border-bottom"><h3>User Timeline</h3></div>
+				<div class="border-bottom"><h3><?php echo $lang['userTimeline'];?></h3></div>
 				<?php
 				if(!empty($pfinal)){
 					foreach($pfinal as $post){
+						$byuser = '<a href="'.$config['sitePath'].'user/'.$post['author'].'">'.$post['author'].'</a>';
+						$bydate = '<small>'.$post['date'].'</small>';
 						?>
 					<div class="row">
-						<div class="col-md-12">
+						<div class="col">
 							<div class="card">
 								<div class="card-body">
-									<h4 class="card-title">Post by <?php echo '<a href="'.$config['sitePath'].'user/'.$post['author'].'">'.$post['author'].'</a> <small>at '.$post['date'].''; ?></small></h4>
+									<h4 class="card-title"><?php echo str_replace(array("%u","%d"),array($byuser,$bydate),$lang['postBy']); ?></h4>
 									<p class="card-text"><?php echo $post['post'];?></p>
-									<a href="#" class="card-link">Like</a>
-									<a href="<?php echo $config['sitePath'].'post/'.$post['post_id']; ?>" class="card-link">View Full</a>
+									<a href="#" class="card-link btn btn-sm btn-info"><?php echo $lang['likeBtn'];?> (<?php echo $post['likes']; ?>)</a>
+									<a href="<?php echo $config['sitePath'].'post/'.$post['post_id']; ?>" class="card-link btn btn-sm btn-info"><?php echo $lang['viewFullBtn'];?></a>
 								</div>
 							</div>
 						</div>
@@ -265,12 +267,14 @@ $location = ltrim($config['sitePath'],"/");
 					break;
 				case "post":
 					//Display post!
+					
 					$post = $db->select("posts","post_id", cleanstring($args['page']));
 					$post = array_values($post);
 					$post = $post[0];
 					if(!empty($post)){
 						//Found post, let's continue
-						
+						$byuser = '<a href="'.$config['sitePath'].'user/'.$post['author'].'">'.$post['author'].'</a>';
+						$bydate = '<small>'.$post['date'].'</small>';
 						?>
 			<div class="container">
 											<?php
@@ -297,9 +301,9 @@ $location = ltrim($config['sitePath'],"/");
 					<div class="col-md-12">
 						<div class="card">
 							<div class="card-body">
-								<h4 class="card-title">Post by <?php echo '<a href="'.$config['sitePath'].'user/'.$post['author'].'">'.$post['author'].'</a><small> at '.$post['date'].'</small>'; ?></h4>
+								<h4 class="card-title"><?php echo str_replace(array("%u","%d"),array($byuser,$bydate),$lang['postBy']); ?></h4>
 								<p class="card-text"><?php echo $post['post'];?></p>
-								<a href="#" class="card-link btn btn-sm btn-info">Like (<?php echo $post['likes']; ?>)</a>
+								<a href="#" class="card-link btn btn-sm btn-info"><?php echo $lang['likeBtn'];?> (<?php echo $post['likes']; ?>)</a>
 							</div>
 						</div>
 					</div>
@@ -313,7 +317,7 @@ $location = ltrim($config['sitePath'],"/");
 									<input type="hidden" name="type" value="comment">
 									<input type="hidden" name="post_id" value="<?php echo $post['post_id'];?>">
 									<textarea id="data" name="data" rows="2" required class="form-control"></textarea>
-									<button class="btn btn-primary float-right">Comment!</button>
+									<button class="btn btn-primary float-right"><?php echo $lang['commentBtn'];?></button>
 									<br>
 								</form>
 							</div>
@@ -325,12 +329,14 @@ $location = ltrim($config['sitePath'],"/");
 								$comments = $db->select("comments","post_id",$post['post_id'], false);
 								if(count($comments) > 0){
 									foreach($comments as $comment){
+										$byuser = '<a href="'.$config['sitePath'].'user/'.$comment['author'].'">'.$comment['author'].'</a>';
+										$bydate = '<small>'.$comment['date'].'</small>';
 										?>
 								<div class="row">
 									<div class="col-md-12">
 										<div class="card">
 											<div class="card-body">
-												<h4 class="card-title">Comment by <?php echo '<a href="'.$config['sitePath'].'user/'.$comment['author'].'">'.$comment['author'].'</a><small> at '.$comment['date'].'</small>'; ?></h4>
+												<h4 class="card-title"><?php echo str_replace(array("%u","%d"),array($byuser,$bydate),$lang['commentBy']); ?></h4>
 												<p class="card-text"><?php echo $comment['post'];?></p>
 											</div>
 										</div>
@@ -340,7 +346,7 @@ $location = ltrim($config['sitePath'],"/");
 										<?php
 									}
 								} else {
-									echo '<p class="lead text-center">No comments on this post yet!</p>';
+									echo '<p class="lead text-center">'.$lang['noComments'].'</p>';
 								}
 								?>
 							</div>
@@ -352,7 +358,7 @@ $location = ltrim($config['sitePath'],"/");
 									<input type="hidden" name="type" value="comment">
 									<input type="hidden" name="post_id" value="<?php echo $post['post_id'];?>">
 									<textarea id="data" name="data" rows="2" required class="form-control"></textarea>
-									<button class="btn btn-primary float-right">Comment!</button>
+									<button class="btn btn-primary float-right"><?php echo $lang['commentBtn'];?></button>
 									<br>
 								</form>
 							</div>

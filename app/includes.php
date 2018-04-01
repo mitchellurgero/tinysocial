@@ -13,6 +13,13 @@ if(file_exists(__DIR__."/config.php")){
 } else {
 	require_once(__DIR__."/config.example.php");
 }
+//Read lang:
+$lfile = __DIR__."/lang/".$config['defaultLang'].".json";
+$ljson = file_get_contents($lfile);
+$ljson = removeBOM($ljson);
+$ljson = utf8ize($ljson);
+$lang = json_decode($ljson,true);
+
 //DB Backend
 require_once(__DIR__."/db/db.php");
 
@@ -39,6 +46,22 @@ function endsWith($haystack, $needle)
 
     return $length === 0 || 
     (substr($haystack, -$length) === $needle);
+}
+function removeBOM($data) {
+    if (0 === strpos(bin2hex($data), 'efbbbf')) {
+       return substr($data, 3);
+    }
+    return $data;
+}
+function utf8ize($d) {
+    if (is_array($d)) {
+        foreach ($d as $k => $v) {
+            $d[$k] = utf8ize($v);
+        }
+    } else if (is_string ($d)) {
+        return utf8_encode($d);
+    }
+    return $d;
 }
 class QuickGit {
   public static function version() {

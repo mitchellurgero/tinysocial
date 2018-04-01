@@ -11,19 +11,19 @@
 		<br>
 		<div class="row text-center">
 			<div class="col-md-4">
-				<p><i class="fa fa-comments fa-5x"></i></p>
-				<p class="lead">Community Driven</p>
-				<p>Join the community today to become part of a community of like-minded people!</p>
+				<p><i class="fa <?php echo $lang['col1icon'];?> fa-5x"></i></p>
+				<p class="lead"><?php echo $lang['col1'];?></p>
+				<p><?php echo $lang['col1desc'];?></p>
 			</div>
 			<div class="col-md-4">
-				<p><i class="fa fa-file-code fa-5x"></i></p>
-				<p class="lead">Open Source</p>
-				<p>Fork us on <a href="https://github.com/mitchellurgero/tinysocial">GitHub</a> and run your own TinySocial!</p>
+				<p><i class="fa <?php echo $lang['col2icon'];?> fa-5x"></i></p>
+				<p class="lead"><?php echo $lang['col2'];?></p>
+				<p><?php echo $lang['col2desc'];?></p>
 			</div>
 			<div class="col-md-4">
-				<p><i class="fa fa-hdd fa-5x"></i></p>
-				<p class="lead">No Database Required</p>
-				<p>Using the <a href="https://github.com/mitchellurgero/jsondatabase">JSONDatabase class</a>, this PHP script doesn't need any database server.</p>
+				<p><i class="fa <?php echo $lang['col3icon'];?> fa-5x"></i></p>
+				<p class="lead"><?php echo $lang['col3'];?></p>
+				<p><?php echo $lang['col3desc'];?></p>
 			</div>
 		</div>
 		<br>
@@ -32,7 +32,7 @@
 				
 			</div>
 			<div class="col-md-11">
-				<p class="lead">Currently have <?php echo ($db->check_table("users") - 1)." users with ".($db->check_table("posts") - 1)." posts."; ?></p>
+				<p class="lead"><?php echo str_replace(array("%i","%p"),array(($db->check_table("users") - 1),($db->check_table("posts") - 1)),$lang['userCount'])?></p>
 			</div>
 		</div>
 	</div>
@@ -60,17 +60,17 @@
 		}
 		?>
 				<form class="form-signin" action="<?php echo $config['sitePath']."api.php"?>" method="POST">
-					<h2 class="form-signin-heading">Please sign in</h2>
+					<h2 class="form-signin-heading"><?php echo $lang['pleaseSignIn'];?></h2>
 					<input type="hidden" name="type" value="login">
-					<label for="username" class="sr-only">Username</label>
-					<input type="username" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
+					<label for="username" class="sr-only"><?php echo $lang['usernameTxt'];?></label>
+					<input type="username" id="username" name="username" class="form-control" placeholder="<?php echo $lang['usernameTxt'];?>" required autofocus>
 					<br>
-					<label for="password" class="sr-only">Password</label>
-					<input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+					<label for="password" class="sr-only"><?php echo $lang['passwordTxt'];?></label>
+					<input type="password" id="password" name="password" class="form-control" placeholder="<?php echo $lang['passwordTxt'];?>" required>
 					<br>
-					<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+					<button class="btn btn-lg btn-primary btn-block" type="submit"><?php echo $lang['loginBtn'];?></button>
 					<br>
-					<a href="<?php echo $config['sitePath'],"page/register/"; ?>">Need an account?</a>
+					<a href="<?php echo $config['sitePath'],"page/register/"; ?>"><?php echo $lang['newAccountLink'];?></a>
 				</form>
 			</div>
 		</div>

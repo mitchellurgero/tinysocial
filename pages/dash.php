@@ -50,11 +50,11 @@ for($i=1; $i<=($pcount + 1); $i++){
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-				<p class="lead">New Post:</p>
+				<p class="lead"><?php echo $lang['newPost'];?></p>
 				<form class="form" action="<?php echo $config['sitePath']."api.php"?>" method="POST">
 					<input type="hidden" name="type" value="post">
 					<textarea id="data" name="data" rows="2" required class="form-control"></textarea>
-					<button class="btn btn-primary float-right">Post!</button>
+					<button class="btn btn-primary float-right"><?php echo $lang['postBtn'];?></button>
 				</form>
 			</div>
 		</div>
@@ -86,19 +86,21 @@ for($i=1; $i<=($pcount + 1); $i++){
 		</div>
 		<div class="row">
 			<div class="col-12">
-				<div class="border-bottom"><h3>Timeline</h3></div>
+				<div class="border-bottom"><h3><?php echo $lang['timeline'];?></h3></div>
 				<?php
 				if(!empty($pfinal)){
 					foreach($pfinal as $post){
+						$byuser = '<a href="'.$config['sitePath'].'user/'.$post['author'].'">'.$post['author'].'</a>';
+						$bydate = '<small>at '.$post['date'].'</small>';
 						?>
 					<div class="row">
 						<div class="col">
 							<div class="card">
 								<div class="card-body">
-									<h4 class="card-title">Post by <?php echo '<a href="'.$config['sitePath'].'user/'.$post['author'].'">'.$post['author'].'</a> <small>at '.$post['date'].''; ?></small></h4>
+									<h4 class="card-title"><?php echo str_replace(array("%u","%d"),array($byuser,$bydate),$lang['postBy']); ?></h4>
 									<p class="card-text"><?php echo $post['post'];?></p>
-									<a href="#" class="card-link btn btn-sm btn-info">Like (<?php echo $post['likes']; ?>)</a>
-									<a href="<?php echo $config['sitePath'].'post/'.$post['post_id']; ?>" class="card-link btn btn-sm btn-info">View Full</a>
+									<a href="#" class="card-link btn btn-sm btn-info"><?php echo $lang['likeBtn'];?> (<?php echo $post['likes']; ?>)</a>
+									<a href="<?php echo $config['sitePath'].'post/'.$post['post_id']; ?>" class="card-link btn btn-sm btn-info"><?php echo $lang['viewFullBtn'];?></a>
 								</div>
 							</div>
 						</div>
@@ -107,7 +109,7 @@ for($i=1; $i<=($pcount + 1); $i++){
 						<?php
 					}
 				} else {
-					echo '<p class="lead">You should follow someone!</p>';
+					echo '<p class="lead">'.$lang['followSomeone'].'</p>';
 				}
 				?>
 			</div>

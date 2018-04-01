@@ -24,13 +24,13 @@ if(!isset($_POST['type'])){
 }
 if(cleanstring($_POST['type']) !== "register" && cleanstring($_POST['type']) !== "login"){
 	if(!isset($_SESSION['username'])){
-		die("OOPS - NOT LOGGED IN.");
+		die($lang['notLoggedIn']);
 	}
 }
 switch(cleanstring($_POST['type'])){
 	case "register":
 		if(!$config['registration']){
-			die("Registration is DISABLED.");
+			die($lang['disabledRegistration']);
 		}
 		//Check if username is taken:
 		if(isset($_POST['username'],$_POST['name'],$_POST['email'],$_POST['password1'],$_POST['password2'])){
@@ -43,14 +43,14 @@ switch(cleanstring($_POST['type'])){
 			$get = $db->select("users","username",$username);
 			if(count($get) > 0){
 				//username exists.
-				$_SESSION['error'] = "That username already exists, please try again.";
+				$_SESSION['error'] = $lang['usernameTaken'];
 				header("Location: $location/page/register");
 				die();
 			}
 			$get = $db->select("users","email",$email);
 			if(count($get) > 0){
 				//username exists.
-				$_SESSION['error'] = "That email already in use, please try again.";
+				$_SESSION['error'] = $lang['emailTaken'];
 				header("Location: $location/page/register");
 				die();
 			}
@@ -66,21 +66,21 @@ switch(cleanstring($_POST['type'])){
 					"friends"		=> json_encode(array("")),
 					);
 					if($db->insert("users", json_encode($data))){
-						$_SESSION['message'] = "User $username created! Please login to continue!";
+						$_SESSION['message'] = str_replace(array("%u"),array($username),$lang['newUserCreated']);
 						header("Location: $location/page/home");
 						die();
 					} else {
-						$_SESSION['error'] = "Failed to create user for an unknown reason. Please contact the system admin!";
+						$_SESSION['error'] = $lang['failedRegistration'];
 						header("Location: $locationpage/register");
 						die();
 					}
 			} else {
-				$_SESSION['error'] = "Passwords did not match, please try again!";
+				$_SESSION['error'] = $lang['passMismatch'];
 				header("Location: $location/page/register");
 				die();
 			}
 		} else {
-			$_SESSION['error'] = "Please use the API properly.";
+			$_SESSION['error'] = $lang['invalidAPI'];
 			header("Location: $location/page/register");
 			die();
 		}
@@ -93,6 +93,12 @@ switch(cleanstring($_POST['type'])){
 			$password = $_POST['password'];
 			$user = $db->select("users","username",$username);
 			$user = array_values($user);
+			if(!isset($user[0])){
+				$_SESSION['error'] = $lang['uapIncorrect'];
+				header("Location: $location/page/home");
+				die();
+				break;
+			}
 			$user = $user[0];
 			if(!empty($user)){
 				//Found user, compare password.
@@ -101,21 +107,22 @@ switch(cleanstring($_POST['type'])){
 					$_SESSION['profilePic'] = $user['profilePic'];
 					$_SESSION['friends'] = $user['friends'];
 					$_SESSION['name'] = $user['name'];
+					$_SESSION['lang'] = $config['defaultLang'];
 					session_regenerate_id(true);
 					header("Location: $location/page/dash");
 					die();
 				} else {
-					$_SESSION['error'] = "The username or password entered is incorrect.";
+					$_SESSION['error'] = $lang['uapIncorrect'];
 					header("Location: $location/page/home");
 					die();
 				}
 			} else {
-				$_SESSION['error'] = "The username or password entered is incorrect.";
+				$_SESSION['error'] = $lang['uapIncorrect'];
 				header("Location: $location/page/home");
 				die();
 			}
 		} else {
-			$_SESSION['error'] = "The username or password entered is incorrect.";
+			$_SESSION['error'] = $lang['uapIncorrect'];
 			header("Location: $location/page/home");
 			die();
 		}

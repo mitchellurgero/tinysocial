@@ -18,6 +18,7 @@ Self-hosting (VPS or private in house) is probably the best way to go.
 - [x] Add/Remove friends
 - [ ] Change user settings
 - [ ] Plugin Support (Coming soon!)
+- [x] Language support (Translations please!!!)
 
 
 ## Installing

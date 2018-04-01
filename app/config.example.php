@@ -8,7 +8,7 @@ $config = array(
 	"databaseName"		=> "tinysocial",									// database name
 	"timezone"			=> "America/Chicago",								// set site default timezone (Important for timestamping!)
 	"registration"		=> true,											// Allow registration
-	
+	"defaultLang"		=> "en",											// Set default language
 	
 	"debug"				=> true,											// Enable debug (All error and Warning output)
 	);
