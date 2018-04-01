@@ -371,7 +371,7 @@ $location = ltrim($config['sitePath'],"/");
 		</div>
 <footer class="footer">
 	<div class="container">
-		<span class="text-muted">MIT Licnesed | Copyrigth &copy; 2018 <a href="https://urgero.org">Mitchell Urgero</a></span>
+		<span class="text-muted">Coded with &hearts; | Copyrigth &copy; 2018 <a href="https://urgero.org">Mitchell Urgero</a></span>
 	</div>
 </footer>
 <script
