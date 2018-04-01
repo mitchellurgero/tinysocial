@@ -3,35 +3,35 @@
 <?php $location = $config['sitePath'];if(isset($_SESSION['username'])) {header("Location: $location/page/dash");die(); }?>
 <br>
 <div class="row">
-	<div class="col-8">
+	<div class="col-md-8">
 		<div class="border-bottom">
 			<h2>Welcome to <?php echo $config['siteName'];?></h2>
 			<p><?php echo $config['siteDesc']; ?></p>
 		</div>
 		<br>
 		<div class="row text-center">
-			<div class="col">
+			<div class="col-md-4">
 				<p><i class="fa fa-comments fa-5x"></i></p>
 				<p class="lead">Community Driven</p>
-				<p></p>
+				<p>Join the community today to become part of a community of like-minded people!</p>
 			</div>
-			<div class="col">
+			<div class="col-md-4">
 				<p><i class="fa fa-file-code fa-5x"></i></p>
 				<p class="lead">Open Source</p>
-				<p></p>
+				<p>Fork us on <a href="https://github.com/mitchellurgero/tinysocial">GitHub</a> and run your own TinySocial!</p>
 			</div>
-			<div class="col">
+			<div class="col-md-4">
 				<p><i class="fa fa-hdd fa-5x"></i></p>
 				<p class="lead">No Database Required</p>
-				<p></p>
+				<p>Using the <a href="https://github.com/mitchellurgero/jsondatabase">JSONDatabase class</a>, this PHP script doesn't need any database server.</p>
 			</div>
 		</div>
 		<br>
 		<div class="row">
-			<div class="col-1">
+			<div class="col-md-1">
 				
 			</div>
-			<div class="col">
+			<div class="col-md-11">
 				<p class="lead">Currently have <?php echo ($db->check_table("users") - 1)." users with ".($db->check_table("posts") - 1)." posts."; ?></p>
 			</div>
 		</div>

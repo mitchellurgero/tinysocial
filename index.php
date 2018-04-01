@@ -27,6 +27,10 @@ if(!$db->check_table("admin")){
 		$db->create_table("posts");
 		$db->insert("posts", json_encode(array("DEFAULT"=>true)));
 	}
+	if(!$db->check_table("comments")){
+		$db->create_table("comments");
+		$db->insert("comments", json_encode(array("DEFAULT"=>true)));
+	}
 }
 
 
