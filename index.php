@@ -54,7 +54,7 @@ if(empty($elements[0])) {
 $location = ltrim($config['sitePath'],"/");
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?php echo $config['defaultLang']; ?>">
 	<head>
 		<meta charset="utf-8">
 	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -107,6 +107,7 @@ $location = ltrim($config['sitePath'],"/");
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item"><a class="nav-link" href="<?php echo $config['sitePath']; ?>page/dash/"><?php echo $lang['dashboardLink'];?></a></li>
+				<li class="nav-item"><a class="nav-link" href="<?php echo $config['sitePath']; ?>page/public/"><?php echo $lang['publicDashLink'];?></a></li>
 				<li class="nav-item"><a class="nav-link" href="<?php echo $config['sitePath']; ?>page/settings/"><?php echo $lang['settingsLink'];?></a></li>
 				<li class="nav-item"><a class="nav-link" href="<?php echo $config['sitePath']; ?>logout.php"><?php echo $lang['logoutLink'];?></a></li>
 			</ul>
