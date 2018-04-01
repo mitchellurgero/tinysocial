@@ -91,7 +91,7 @@ for($i=1; $i<=($pcount + 1); $i++){
 				if(!empty($pfinal)){
 					foreach($pfinal as $post){
 						$byuser = '<a href="'.$config['sitePath'].'user/'.$post['author'].'">'.$post['author'].'</a>';
-						$bydate = '<small>at '.$post['date'].'</small>';
+						$bydate = '<small>'.$post['date'].'</small>';
 						?>
 					<div class="row">
 						<div class="col">
