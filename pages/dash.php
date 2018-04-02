@@ -6,6 +6,12 @@
 $user = $db->select("users","username",$_SESSION['username']);
 $user = array_values($user);
 $user = $user[0];
+$ppic = "";
+if(startsWith($user['profilePic'], "http://") || startsWith($user['profilePic'], "https://")){
+	$ppic = $user['profilePic'];
+} else {
+	$ppic = $location."/files/".$user['profilePic'];
+}
 $friends = json_decode($user['friends']);
 $location = ltrim($config['sitePath'],"/");
 $pcount = $db->check_table("posts");
@@ -43,7 +49,7 @@ for($i=1; $i<=($pcount + 1); $i++){
 		<div class="row">
 			<div class="col-md-12">
 				<div class="text-center">
-					<img src="<?php echo $location."/files/".$user['profilePic']; ?>" class="img-fluid img-thumbnail">
+					<img src="<?php echo $ppic ?>" class="img-fluid img-thumbnail" style="max-height:150px !important;">
 				</div>
 				<p class="lead text-center"><?php echo $user['name']; ?></p>
 			</div>
@@ -90,7 +96,10 @@ for($i=1; $i<=($pcount + 1); $i++){
 				<?php
 				if(!empty($pfinal)){
 					foreach($pfinal as $post){
-						$byuser = '<a href="'.$config['sitePath'].'user/'.$post['author'].'">'.$post['author'].'</a>';
+						$tempUser = $db->select("users","username",$post['author']);
+						$tempUser = array_values($tempUser);
+						$tempUser = $tempUser[0];
+						$byuser = '<a href="'.$config['sitePath'].'user/'.$post['author'].'">'.$tempUser['name'].'</a>';
 						$bydate = '<small>'.$post['date'].'</small>';
 						?>
 					<div class="row">

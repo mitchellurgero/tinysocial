@@ -9,6 +9,7 @@
 	"internalError":"There was an internal error.",
 	"userCount":"Currently have %i users with %p posts.",
 	"postBtn":"Post!",
+	"saveBtn":"Save",
 	"timeline":"Friend Timeline",
 	"publicTimeline":"Public Timeline",
 	"publicDashLink":"Public",
@@ -50,5 +51,11 @@
 	"followSomeone":"You should follow someone!",
 	"removeFriend":"Remove Friend",
 	"addFriend":"Add Friend",
-	"userTimeline":"User Timeline"
+	"userTimeline":"User Timeline",
+	"changeFullName":"Change Full Name",
+	"currentProfilePic":"Current Profile Picture",
+	"generalError":"There was an unknown error. Please contact the system admin.",
+	"passwordChanged":"Your password has been changed!",
+	"profilePicChanged":"Your profile picture has been changed!",
+	"commentNonExist":"Cannot comment on a post that does not exist!"
 }

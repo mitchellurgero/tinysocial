@@ -136,6 +136,12 @@ $location = ltrim($config['sitePath'],"/");
 				$user = $db->select("users","username",$uname);
 				$user = array_values($user);
 				$user = $user[0];
+				$ppic = "";
+				if(startsWith($user['profilePic'], "http://") || startsWith($user['profilePic'], "https://")){
+					$ppic = $user['profilePic'];
+				} else {
+					$ppic = $location."/files/".$user['profilePic'];
+				}
 				if($user == false || empty($user)){
 					break;
 				}
@@ -175,7 +181,7 @@ $location = ltrim($config['sitePath'],"/");
 		<div class="row">
 			<div class="col-md-12">
 				<div class="text-center">
-					<img src="<?php echo $location."/files/".$user['profilePic']; ?>" class="img-fluid img-thumbnail">
+					<img src="<?php echo $ppic ?>" class="img-fluid img-thumbnail" style="max-height:150px !important;">
 				</div>
 				<p class="lead text-center"><?php echo $user['name']; ?></p>
 			</div>
@@ -237,7 +243,7 @@ $location = ltrim($config['sitePath'],"/");
 				<?php
 				if(!empty($pfinal)){
 					foreach($pfinal as $post){
-						$byuser = '<a href="'.$config['sitePath'].'user/'.$post['author'].'">'.$post['author'].'</a>';
+						$byuser = '<a href="'.$config['sitePath'].'user/'.$post['author'].'">'.$user['name'].'</a>';
 						$bydate = '<small>'.$post['date'].'</small>';
 						?>
 					<div class="row">
@@ -330,7 +336,10 @@ $location = ltrim($config['sitePath'],"/");
 								$comments = $db->select("comments","post_id",$post['post_id'], false);
 								if(count($comments) > 0){
 									foreach($comments as $comment){
-										$byuser = '<a href="'.$config['sitePath'].'user/'.$comment['author'].'">'.$comment['author'].'</a>';
+										$tempUser = $db->select("users","username",$post['author']);
+										$tempUser = array_values($tempUser);
+										$tempUser = $tempUser[0];
+										$byuser = '<a href="'.$config['sitePath'].'user/'.$comment['author'].'">'.$tempUser['name'].'</a>';
 										$bydate = '<small>'.$comment['date'].'</small>';
 										?>
 								<div class="row">

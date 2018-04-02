@@ -37,8 +37,8 @@ switch(cleanstring($_POST['type'])){
 			$name = cleanstring($_POST['name']);
 			$username = cleanstring($_POST['username']);
 			$email = cleanstring($_POST['email']);
-			$password1 = cleanstring($_POST['password1']);
-			$password2 = cleanstring($_POST['password2']);
+			$password1 = $_POST['password1'];
+			$password2 = $_POST['password2'];
 			$profilepic = "default.jpg";
 			$get = $db->select("users","username",$username);
 			if(count($get) > 0){
@@ -129,6 +129,9 @@ switch(cleanstring($_POST['type'])){
 		break;
 	case "post":
 		//Nice
+		$user = $db->select("users","username",$_SESSION['username']);
+		$user = array_values($user);
+		$user = $user[0];
 		if(isset($_POST['data'])){
 			//Will need to pre-process post but for quick test...
 			$id = bin2hex(random_bytes(24));
@@ -140,7 +143,7 @@ switch(cleanstring($_POST['type'])){
 				"post_id"	=> $id,
 				);
 			if(!$db->insert("posts", json_encode($data))){
-				$_SESSION['error'] = "Error posting, please try again!";
+				$_SESSION['error'] = $lang['generalError'];
 				header("Location: $location/page/dash");
 				die();
 			} else {
@@ -178,7 +181,7 @@ switch(cleanstring($_POST['type'])){
 			if($db->insert("users",json_encode($user),$user['row_id'])){
 				$_SESSION['message'] = "Added $f as a friend!";
 			} else {
-				$_SESSION['error'] = "There was an error adding $f as a friend. ".json_last_error();
+				$_SESSION['error'] = $lang['generalError'];
 			}
 		}
 		header("Location: $location/user/$f");
@@ -215,13 +218,16 @@ switch(cleanstring($_POST['type'])){
 			if($db->insert("users",json_encode($user),$user['row_id'])){
 				$_SESSION['message'] = "Removed $f from friends!";
 			} else {
-				$_SESSION['error'] = "There was an error removing $f as a friend. ".json_last_error();
+				$_SESSION['error'] = $lang['generalError'];
 			}
 		}
 		header("Location: $location/user/$f");
 		die();
 		break;
 	case "comment":
+		$user = $db->select("users","username",$_SESSION['username']);
+		$user = array_values($user);
+		$user = $user[0];
 		$post_id = cleanstring($_POST['post_id']);
 		//Do some more cleaning but for now:
 		$data = array(
@@ -237,12 +243,57 @@ switch(cleanstring($_POST['type'])){
 			if($db->insert("comments", json_encode($data))){
 				$_SESSION['message'] = "Comment saved!";
 			} else {
-				$_SESSION['error'] = "Could not save comment!";
+				$_SESSION['error'] = $lang['generalError'];
 			}
 		} else {
-			$_SESSION['error'] = "Cannot comment on a non-existant post.";
+			$_SESSION['error'] = $lang['commentNonExist'];
 		}
 		header("Location: $location/post/$post_id");
+		die();
+		break;
+	case "changeName":
+		$newName = cleanstring($_POST['name']);
+		$user = $db->select("users","username",$_SESSION['username']);
+		$user = array_values($user);
+		$user = $user[0];
+		$user['name'] = $newName;
+		if($db->insert("users",json_encode($user),$user['row_id'])){
+			$_SESSION['message'] = "Changed your name!";
+		} else {
+			$_SESSION['error'] = $lang['generalError'];
+		}
+		header("Location: $location/page/settings");
+		die();
+		break;
+	case "changePassword":
+		$user = $db->select("users","username",$_SESSION['username']);
+		$user = array_values($user);
+		$user = $user[0];
+		if($_POST['password1'] == $_POST['password2']){
+			$user['password'] = password_hash($_POST['password1'],PASSWORD_DEFAULT);
+			if($db->insert("users",json_encode($user),$user['row_id'])){
+				$_SESSION['message'] = $lang['passwordChanged'];
+			} else {
+				$_SESSION['error'] = $lang['generalError'];
+			}
+		} else {
+			$_SESSION['error'] = $lang['passMismatch'];
+		}
+		header("Location: $location/page/settings");
+		die();
+		break;
+	case "changeProfilePic":
+		$user = $db->select("users","username",$_SESSION['username']);
+		$user = array_values($user);
+		$user = $user[0];
+		$newPic = cleanstring($_POST['pic']);
+		$user['profilePic'] = $newPic;
+		if($db->insert("users",json_encode($user),$user['row_id'])){
+			$_SESSION['message'] = $lang['profilePicChanged'];
+		} else {
+			$_SESSION['error'] = $lang['generalError'];
+		}
+		header("Location: $location/page/settings");
 		die();
 		break;
 	default:
