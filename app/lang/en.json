@@ -28,7 +28,7 @@
 	"usernameTaken":"That username already exists, please try again.",
 	"emailTaken":"That email already in use, please try again.",
 	"invalidAPI":"Please use the api properly.",
-	"notLoggedIn":"OOPS - NOT LOGGED IN.",
+	"notLoggedIn":"You must be logged into view this page.",
 	"disabledRegistration":"Registration is currently disabled.",
 	"signUp":"Sign Up",
 	"usernameTxt":"Username",

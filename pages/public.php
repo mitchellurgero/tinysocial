@@ -1,6 +1,6 @@
 <?php if(!defined("TINY")){die();} ?>
 <?php Event::handle('PageLoad',array(&$_SESSION));?>
-<?php if(!isset($_SESSION['username'])) die("You must be signed in to see this page."); ?>
+<?php if(!isset($_SESSION['username'])) { die("<br>".$lang['notLoggedIn']); }?>
 <?php
 //Get current user infomation from db
 $user = $db->select("users","username",$_SESSION['username']);

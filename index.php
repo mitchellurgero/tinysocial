@@ -132,6 +132,10 @@ $location = ltrim($config['sitePath'],"/");
 					break;
 				case "user":
 				//Get current user infomation from db
+				if(!isset($_SESSION['username'])){
+					echo "<br>".$lang['notLoggedIn'];
+					break;
+				}
 				$uname = cleanstring($args['page']);
 				$user = $db->select("users","username",$uname);
 				$user = array_values($user);
