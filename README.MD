@@ -27,3 +27,8 @@ Self-hosting (VPS or private in house) is probably the best way to go.
 2. copy app/config.example.php to config.php
 3. edit config.php to suit your needs
 4. Test the website to confirm it works.
+
+
+## Screenshot of beta UI
+
+![Screenshot](Screenshot_2018-04-01_21-24-21.png)
