@@ -80,6 +80,7 @@ $location = ltrim($config['sitePath'],"/");
 			  background-color: #f5f5f5;
 			}
 	    </style>
+	    <?php Event::handle('HeaderEnd',array(&$_SESSION)); ?>
 	</head>
 	<body>
 		<?php
@@ -93,6 +94,7 @@ $location = ltrim($config['sitePath'],"/");
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item"><a class="nav-link" href="<?php echo $config['sitePath']; ?>page/home/"><?php echo $lang['homeLink'];?></a></li>
+				<?php Event::handle('LoggedOutNavEnd',array(&$_SESSION)); ?>
 			</ul>
 			</div>
 		</nav>
@@ -110,6 +112,7 @@ $location = ltrim($config['sitePath'],"/");
 				<li class="nav-item"><a class="nav-link" href="<?php echo $config['sitePath']; ?>page/public/"><?php echo $lang['publicDashLink'];?></a></li>
 				<li class="nav-item"><a class="nav-link" href="<?php echo $config['sitePath']; ?>page/settings/"><?php echo $lang['settingsLink'];?></a></li>
 				<li class="nav-item"><a class="nav-link" href="<?php echo $config['sitePath']; ?>logout.php"><?php echo $lang['logoutLink'];?></a></li>
+				<?php Event::handle('LoggedInNavEnd',array(&$_SESSION)); ?>
 			</ul>
 			</div>
 		</nav>
@@ -121,6 +124,7 @@ $location = ltrim($config['sitePath'],"/");
 		<?php
 		if($args['type']){
 			$type = cleanstring(str_replace(array(".."),array(""),$args['type']));
+			Event::handle('IndexApiLoad',array(&$args));
 			switch(cleanstring($type)){
 				case "page":
 					$p = cleanstring(str_replace(array(".."),array(""),$args['page']));
@@ -404,6 +408,7 @@ integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js" integrity="sha384-feJI7QwhOS+hwpX2zkaeJQjeiwlhOP+SdQDqhgvvo1DsjtiSQByFdThsxO669S2D" crossorigin="anonymous"></script>
+	<?php Event::handle('BodyEnd',array(&$_SESSION)); ?>
 	</body>
 </html>
 

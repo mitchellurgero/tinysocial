@@ -13,4 +13,5 @@ $config = array(
 	"debug"				=> true,											// Enable debug (All error and Warning output)
 	);
 	
+	//Ability to add plugins to the system
 	//addPlugin("example"); //Plugin support not working ATM.

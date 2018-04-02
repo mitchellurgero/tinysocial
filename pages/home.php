@@ -1,5 +1,5 @@
 <?php if(!defined("TINY")){die();} ?>
-<?php Event::handle('PageLoad',array(&$_SESSION));?>
+<?php Event::handle('PageLoad',array(&$_SESSION, &$_POST));?>
 <?php $location = $config['sitePath'];if(isset($_SESSION['username'])) {header("Location: $location/page/dash");die(); }?>
 <br>
 <div class="row">

@@ -27,6 +27,7 @@ if(cleanstring($_POST['type']) !== "register" && cleanstring($_POST['type']) !==
 		die($lang['notLoggedIn']);
 	}
 }
+Event::handle('ApiLoad',array(&$_POST));
 switch(cleanstring($_POST['type'])){
 	case "register":
 		if(!$config['registration']){
@@ -295,6 +296,9 @@ switch(cleanstring($_POST['type'])){
 		}
 		header("Location: $location/page/settings");
 		die();
+		break;
+	case "like":
+		
 		break;
 	default:
 		
