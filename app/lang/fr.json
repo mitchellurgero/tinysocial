@@ -9,7 +9,10 @@
 	"internalError":"Il y a une erreur interne.",
 	"userCount":"Il y a actuellement %i utilisateurs avec %p messages.",
 	"postBtn":"Publier!",
+	"saveBtn":"Enregistrer",
 	"timeline":"Fil de disscussion",
+	"publicTimeline":"Fil de discussion publique",
+	"publicDashLink":"Publique",
 	"commentBtn":"Commenter!",
 	"viewFullBtn":"Voire en entier",
 	"likeBtn":"Liker",
@@ -48,5 +51,11 @@
 	"followSomeone":"Vous devrez suivre quelqu'un!",
 	"removeFriend":"Supprimer cette ami",
 	"addFriend":"Ajouter en amis",
-	"userTimeline":"Fil de discussion de l'utilisateur"
+	"userTimeline":"Fil de discussion de l'utilisateur",
+	"changeFullName": "Changer de nom complet",
+	"currentProfilePic":"Photo de profile actuelle",
+	"generalError":"Il y a une erreur inconnu. Veuillez contacter l'administrateur syst&egrave;me.",
+	"passwordChanged":"Votre mot de passe a bien &eacute;t&eacute; chang&eacute;!",
+	"profilePicChanged": "Votre photo de profile a bien &eacute;t&eacute; chang&eacute;!",
+	"commentNonExist":"Vous ne pouvez pas commenter un message qui n'existe pas!"
 }
