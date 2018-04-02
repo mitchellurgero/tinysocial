@@ -28,7 +28,7 @@ class ExamplePlugin extends Plugin{
 
 - ApiLoad(&$_POST)
 
-Called every time the API is called (Post, like, comment, change user setting, login, register)
+Called every time the API is called (Post, like, comment, change user setting, login, register) Can be used to restrict registrations as an example, or to bypass login to a different system (Like LDAP!)
 
 - IndexApiLoad(&$args)
 
