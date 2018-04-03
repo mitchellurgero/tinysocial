@@ -134,11 +134,18 @@ switch(cleanstring($_POST['type'])){
 		break;
 	case "login":
 		//Need to login now
-		if(isset($_POST['username'], $_POST['password'])){
+		if(isset($_POST['usernameOrEmail'], $_POST['password'])){
 			//Check given password:
-			$username = cleanstring($_POST['username']);
+			$usernameOrEmail = cleanstring($_POST['usernameOrEmail']);
 			$password = $_POST['password'];
-			$user = $db->select("users","username",$username);
+			if (!$db->select("users","username",$usernameOrEmail))
+			{
+			    $user = $db->select("users", "email", $usernameOrEmail);
+			}
+			else
+			{
+			    $user = $db->select("users", "username", $usernameOrEmail);
+			}
 			$user = array_values($user);
 			if(!isset($user[0])){
 				$_SESSION['error'] = $lang['uapIncorrect'];
@@ -206,30 +213,33 @@ switch(cleanstring($_POST['type'])){
 			die();
 			break;
 		}
+		if($_POST["friend"] != $_SESSION["username"])
+		{
 		//Clean string and get current users friend list
 		$f = cleanstring($_POST['friend']);
 		$user = $db->select("users","username",$_SESSION['username']);
-		$user = array_values($user);
-		$user = $user[0];
-		$friends = json_decode($user['friends']);
-		if(in_array($f, $friends)){
+	    	$user = array_values($user);
+	    	$user = $user[0];
+    		$friends = json_decode($user['friends']);
+    		if(in_array($f, $friends)){
 			header("Location: $location/user/".$_POST['friend']);
-			die();
-			break;
-		}
-		//check if requested friend exists as user.
-		$tuser = $db->select("users","username",$f);
-		$tuser = array_values($tuser);
-		$tuser = $tuser[0];
-		if(!empty($tuser)){
-			$friends[] = $f;
-			$nF = json_encode($friends);
-			$user['friends'] = $nF;
-			if($db->insert("users",json_encode($user),$user['row_id'])){
-				$_SESSION['message'] = "Added $f as a friend!";
-			} else {
-				$_SESSION['error'] = $lang['generalError'];
-			}
+	    		die();
+	    		break;
+	    	}
+	    	//check if requested friend exists as user.
+	    	$tuser = $db->select("users","username",$f);
+    		$tuser = array_values($tuser);
+    		$tuser = $tuser[0];
+    		if(!empty($tuser)){
+    			$friends[] = $f;
+    			$nF = json_encode($friends);
+    			$user['friends'] = $nF;
+    			if($db->insert("users",json_encode($user),$user['row_id'])){
+		    		$_SESSION['message'] = "Added $f as a friend!";
+		    	} else {
+	    			$_SESSION['error'] = $lang['generalError'];
+	    		}
+		    }
 		}
 		header("Location: $location/user/$f");
 		die();
@@ -241,32 +251,35 @@ switch(cleanstring($_POST['type'])){
 			die();
 			break;
 		}
-		//Clean string and get current users friend list
-		$f = cleanstring($_POST['friend']);
-		$user = $db->select("users","username",$_SESSION['username']);
-		$user = array_values($user);
-		$user = $user[0];
-		$friends = json_decode($user['friends']);
-		if(!in_array($f, $friends)){
-			header("Location: $location/user/".$_POST['friend']);
-			die();
-			break;
-		}
-		//check if requested friend exists as user.
-		$tuser = $db->select("users","username",$f);
-		$tuser = array_values($tuser);
-		$tuser = $tuser[0];
-		if(!empty($tuser)){
-			if (($key = array_search($f, $friends)) !== false) {
-    			unset($friends[$key]);
-			}
-			$nF = json_encode($friends);
-			$user['friends'] = $nF;
-			if($db->insert("users",json_encode($user),$user['row_id'])){
-				$_SESSION['message'] = "Removed $f from friends!";
-			} else {
-				$_SESSION['error'] = $lang['generalError'];
-			}
+		if($_POST["friend"] != $_SESSION["username"])
+		{
+	    	//Clean string and get current users friend list
+    		$f = cleanstring($_POST['friend']);
+    		$user = $db->select("users","username",$_SESSION['username']);
+    		$user = array_values($user);
+    		$user = $user[0];
+    		$friends = json_decode($user['friends']);
+    		if(!in_array($f, $friends)){
+    			header("Location: $location/user/".$_POST['friend']);
+    			die();
+    			break;
+    		}
+    		//check if requested friend exists as user.
+    		$tuser = $db->select("users","username",$f);
+	    	$tuser = array_values($tuser);
+    		$tuser = $tuser[0];
+    		if(!empty($tuser)){
+    			if (($key = array_search($f, $friends)) !== false) {
+        			unset($friends[$key]);
+    			}
+    			$nF = json_encode($friends);
+    			$user['friends'] = $nF;
+    			if($db->insert("users",json_encode($user),$user['row_id'])){
+    				$_SESSION['message'] = "Removed $f from friends!";
+    			} else {
+    				$_SESSION['error'] = $lang['generalError'];
+    			}
+    		}
 		}
 		header("Location: $location/user/$f");
 		die();
