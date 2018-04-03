@@ -138,7 +138,12 @@ switch(cleanstring($_POST['type'])){
 			//Check given password:
 			$username = cleanstring($_POST['username']);
 			$password = $_POST['password'];
-			$user = $db->select("users","username",$username);
+			$user = '';
+			if(strpos($username,"@") !== false){
+				$user = $db->select("users","email",$username);
+			} else {
+				$user = $db->select("users","username",$username);
+			}
 			$user = array_values($user);
 			if(!isset($user[0])){
 				$_SESSION['error'] = $lang['uapIncorrect'];
