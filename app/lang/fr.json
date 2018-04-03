@@ -59,12 +59,12 @@
 	"profilePicChanged": "Votre photo de profile a bien &eacute;t&eacute; chang&eacute;!",
 	"commentNonExist":"Vous ne pouvez pas commenter un message qui n'existe pas!",
 	"captchaTxt":"Captcha",
-	"invalidCaptcha":"La vérification Captcha a échoué, veuillez recommencer",
-	"regRequireTitle":"Règles d'inscription",
-	"regUsername":"L'identifiant doit avoir entre 4 et 24 caractères",
-	"regName":"Le nom doit avoir au minimum 4 caractères. Veuillez utiliser un alias si besoin.",
-	"regEmail":"Le mail n'a <i>pas</i> besoin d'être valide, mais vous devriez en utiliser un vrai pour récupérer votre mot de passe si nécessaire.",
-	"regPassword":"Le mot de passe doit comporter au moins 8 caractères et inclure au moins un caractère spécial. <code>!@#$%^&*()</code>",
+	"invalidCaptcha":"La v&eacute;rification Captcha a &eacute;chou&eacute;, veuillez recommencer",
+	"regRequireTitle":"R&egrave;gles d'inscription",
+	"regUsername":"L'identifiant doit avoir entre 4 et 24 caract&egrave;res",
+	"regName":"Le nom doit avoir au minimum 4 caract&egrave;res. Veuillez utiliser un alias si besoin.",
+	"regEmail":"Le mail n'a <i>pas</i> besoin d'&ecirc;tre valide, mais vous devriez en utiliser un vrai pour r&eacute;cup&eacute;rer votre mot de passe si n&eacute;cessaire.",
+	"regPassword":"Le mot de passe doit comporter au moins 8 caractères et inclure au moins un caract&egrave;re sp&eacute;cial. <code>!@#$%^&*()</code>",
 	"badUsername":"Cet identifiant est invalide",
-	"badPassword":"Veuillez vérifier que votre mot de passe respecte les règles."
+	"badPassword":"Veuillez v&eacute;rifier que votre mot de passe respecte les r&egrave;gles."
 }
