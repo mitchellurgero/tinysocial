@@ -134,11 +134,18 @@ switch(cleanstring($_POST['type'])){
 		break;
 	case "login":
 		//Need to login now
-		if(isset($_POST['username'], $_POST['password'])){
+		if(isset($_POST['usernameOrEmail'], $_POST['password'])){
 			//Check given password:
-			$username = cleanstring($_POST['username']);
+			$usernameOrEmail = cleanstring($_POST['usernameOrEmail']);
 			$password = $_POST['password'];
-			$user = $db->select("users","username",$username);
+			if (!$db->select("users","username",$usernameOrEmail))
+			{
+			    $user = $db->select("users", "email", $usernameOrEmail);
+			}
+			else
+			{
+			    $user = $db->select("users", "username", $usernameOrEmail);
+			}
 			$user = array_values($user);
 			if(!isset($user[0])){
 				$_SESSION['error'] = $lang['uapIncorrect'];
