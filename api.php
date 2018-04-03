@@ -56,10 +56,32 @@ switch(cleanstring($_POST['type'])){
 		if(!$config['registration']){
 			die($lang['disabledRegistration']);
 		}
-		//Check if username is taken:
-		if(isset($_POST['username'],$_POST['name'],$_POST['email'],$_POST['password1'],$_POST['password2'])){
+		$_SESSION['tempStore'] = $_POST;
+		unset($_SESSION['tempStore']['password1']);
+		unset($_SESSION['tempStore']['password2']);
+		if(isset($_POST['username'],$_POST['name'],$_POST['email'],$_POST['password1'],$_POST['password2'],$_POST['captcha'])){
+			if(!(strtolower($_SESSION['captcha']['code']) === strtolower($_POST['captcha']))){
+				$_SESSION['error'] = $lang['invalidCaptcha'];
+				header("Location: $location/page/register");
+				die();
+			}
 			$name = cleanstring($_POST['name']);
-			$username = cleanstring($_POST['username']);
+			$username = strtolower(cleanstring($_POST['username']));
+			if(strlen($username) < 4 || strlen($username) > 24){
+				$_SESSION['error'] = $lang['badUsername'];
+				header("Location: $location/page/register");
+				die();
+			}
+			if(!(strlen($_POST['password1']) >= 4)){
+				$_SESSION['error'] = $lang['badPassword'];
+				header("Location: $location/page/register");
+				die();
+			}
+			if(!preg_match('/[\'^£!@#$%^&*()]/', $_POST['password1'])){
+				$_SESSION['error'] = $lang['badPassword'];
+				header("Location: $location/page/register");
+				die();
+			}
 			$email = cleanstring($_POST['email']);
 			$password1 = $_POST['password1'];
 			$password2 = $_POST['password2'];
@@ -91,6 +113,7 @@ switch(cleanstring($_POST['type'])){
 					);
 					if($db->insert("users", json_encode($data))){
 						$_SESSION['message'] = str_replace(array("%u"),array($username),$lang['newUserCreated']);
+						unset($_SESSION['tempStore']);
 						header("Location: $location/page/home");
 						die();
 					} else {

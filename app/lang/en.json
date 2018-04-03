@@ -57,5 +57,15 @@
 	"generalError":"There was an unknown error. Please contact the system admin.",
 	"passwordChanged":"Your password has been changed!",
 	"profilePicChanged":"Your profile picture has been changed!",
-	"commentNonExist":"Cannot comment on a post that does not exist!"
+	"commentNonExist":"Cannot comment on a post that does not exist!",
+	"captchaTxt":"Captcha",
+	"invalidCaptcha":"That Captcha code was invalid, please try again.",
+	"regRequireTitle":"Registration Rules",
+	"regUsername":"Username must be between 4 - 24 characters long. No special characters for the username are accepted.",
+	"regName":"Name must be at least 4 characters long. Please keep it reasonable if using an alias.",
+	"regEmail":"EMail does <i>not</i> need to be valid, but you should use a real one to recover your password if needed.",
+	"regPassword":"Password must be at least 8 characters long and include at least one special character.<code>!@#$%^&*()</code>",
+	"badUsername":"That username is invalid.",
+	"badPassword":"Please check that your password matches the rules."
+	
 }

@@ -23,6 +23,8 @@ $lang = json_decode($ljson,true);
 //DB Backend
 require_once(__DIR__."/db/db.php");
 
+//Captcha backend
+require_once(__DIR__."/captcha/simple-php-captcha.php");
 
 function cleanstring($string){
 	//$string = escapeshellcmd($string);

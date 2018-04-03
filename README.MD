@@ -23,6 +23,8 @@ Self-hosting (VPS or private in house) is probably the best way to go.
 
 ## Installing
 
+**Requirements: php7.0-mbstring php7.0-gd php7.0-mcrypt php7.0-xml**
+
 1. git clone into your directory of choice
 2. copy app/config.example.php to config.php
 3. edit config.php to suit your needs
