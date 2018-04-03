@@ -202,19 +202,22 @@ $location = ltrim($config['sitePath'],"/");
 					$userT = array_values($userT);
 					$userT = $userT[0];
 					$friends = json_decode($userT['friends']);
-					if(in_array($user['username'], $friends)){
-						?>
-						<input type="hidden" name="type" value="remove">
-						<input type="hidden" name="friend" value="<?php echo $user['username']; ?>">
-						<button type="submit" class="btn btn-sm btn-warning"><?php echo $lang['removeFriend'];?></button>
-						<?php
-					} else {
-						?>
-						<input type="hidden" name="type" value="add">
-						<input type="hidden" name="friend" value="<?php echo $user['username']; ?>">
-						<button type="submit" class="btn btn-sm btn-primary"><?php echo $lang['addFriend'];?></button>
-						<?php
-					}
+					if ($user["username"] != $_SESSION["username"])
+					{
+					    if(in_array($user['username'], $friends)){
+			    			?>
+			    			<input type="hidden" name="type" value="remove">
+			    			<input type="hidden" name="friend" value="<?php echo $user['username']; ?>">
+			    			<button type="submit" class="btn btn-sm btn-warning"><?php echo $lang['removeFriend'];?></button>
+			    			<?php
+			    		} else {
+				    		?>
+				    		<input type="hidden" name="type" value="add">
+				    		<input type="hidden" name="friend" value="<?php echo $user['username']; ?>">
+				    		<button type="submit" class="btn btn-sm btn-primary"><?php echo $lang['addFriend'];?></button>
+				    		<?php
+				    	}
+				    }
 					?>
 				</form>
 			</div>
