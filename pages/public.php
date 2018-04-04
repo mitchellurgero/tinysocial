@@ -95,6 +95,7 @@ for($i=1; $i<=($pcount + 1); $i++){
 						$tempUser = $db->select("users","username",$post['author']);
 						$tempUser = array_values($tempUser);
 						$tempUser = $tempUser[0];
+						$likes = $post['like_counter'];
 						$byuser = '<a href="'.$config['sitePath'].'user/'.$post['author'].'">'.$tempUser['name'].'</a>';
 						$bydate = '<small>'.$post['date'].'</small>';
 						?>
@@ -104,8 +105,12 @@ for($i=1; $i<=($pcount + 1); $i++){
 								<div class="card-body">
 									<h4 class="card-title"><?php echo str_replace(array("%u","%d"),array($byuser,$bydate),$lang['postBy']); ?></h4>
 									<p class="card-text"><?php echo $post['post'];?></p>
-									<a href="#" class="card-link btn btn-sm btn-info"><?php echo $lang['likeBtn'];?> (<?php echo $post['likes']; ?>)</a>
-									<a href="<?php echo $config['sitePath'].'post/'.$post['post_id']; ?>" class="card-link btn btn-sm btn-info"><?php echo $lang['viewFullBtn'];?></a>
+									<form class="form-inline" action="<?php echo $config['sitePath']."api.php";?>" method="POST">
+										<input type="hidden" name="type" value="like">
+										<input type="hidden" name="post" value="<?php echo $post['post_id'];?>">
+										<button class="card-link btn btn-sm btn-info" type="submit"><?php echo $lang['likeBtn'];?> <span class="badge badge-default"><?php echo $likes; ?></span></button>
+										<a href="<?php echo $config['sitePath'].'post/'.$post['post_id']; ?>" class="card-link btn btn-sm btn-info"><?php echo $lang['viewFullBtn'];?></a>
+									</form>
 								</div>
 							</div>
 						</div>

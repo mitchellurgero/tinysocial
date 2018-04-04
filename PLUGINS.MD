@@ -4,6 +4,9 @@ Basic stuff works, not worried about plugins right now. This will get better ove
 
 ## Plugin formatting
 
+In order to call an event used in a plugin you must prepend `on` to it: `onEventName`.
+As an example, for the `PageLoad` event it would be `onPageLoad`:
+
 ```
 class ExamplePlugin extends Plugin{
 	public function __construct(){

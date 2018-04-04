@@ -66,6 +66,8 @@
 	"regEmail":"EMail does <i>not</i> need to be valid, but you should use a real one to recover your password if needed.",
 	"regPassword":"Password must be at least 8 characters long and include at least one special character.<code>!@#$%^&*()</code>",
 	"badUsername":"That username is invalid.",
-	"badPassword":"Please check that your password matches the rules."
+	"badPassword":"Please check that your password matches the rules.",
+	"likeError":"You cannot like the same post more than once!",
+	"likeSuccess":"You liked this post!"
 	
 }

@@ -191,7 +191,8 @@ switch(cleanstring($_POST['type'])){
 				"post"		=> cleanstring($_POST['data']),
 				"author"	=> $_SESSION['username'],
 				"date"		=> date('m-d-Y h:i:s a'),
-				"likes"		=> 0,
+				"likes"		=> "{}",
+				"like_counter"=>0,
 				"post_id"	=> $id,
 				);
 			if(!$db->insert("posts", json_encode($data))){
@@ -349,7 +350,45 @@ switch(cleanstring($_POST['type'])){
 		die();
 		break;
 	case "like":
-		
+		$user = $db->select("users","username",$_SESSION['username']);
+		$user = array_values($user);
+		$user = $user[0];
+		if(isset($_POST['post'])){
+			$post = $_POST['post'];
+			$post = $db->select("posts","post_id",$post);
+			$post = array_values($post);
+			$post = $post[0];
+			if(!empty($post)){
+				//add like to post
+				$likes = json_decode($post['likes'], true);
+				if(in_array($user['username'], $likes)){
+					$_SESSION['error'] = $lang['likeError'];
+					header("Location: $location/post/".$post['post_id']);
+					die();
+					break;
+				} else {
+					$likes[] = $_SESSION['username'];
+					$post['like_counter']++;
+					$post['likes'] = json_encode($likes);
+					if($db->insert("posts",json_encode($post),$post['row_id'])){
+						$_SESSION['message'] = $lang['likeSuccess'];
+						header("Location: $location/post/".$post['post_id']);
+						die();
+						break;
+					} else {
+						$_SESSION['error'] = $lang['generalError'];
+						header("Location: $location/page/dash/");
+						die();
+						break;
+					}
+				}
+			} else {
+				$_SESSION['error'] = $lang['generalError'];
+				header("Location: $location/page/dash/");
+				die();
+				break;
+			}
+		}
 		break;
 	default:
 		
