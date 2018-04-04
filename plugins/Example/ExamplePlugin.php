@@ -17,5 +17,10 @@ class ExamplePlugin extends Plugin{
 		
 		return true;
 	}
+	public function onLoggedInNavEnd(&$SESS){
+		echo '<li class="nav-item"><a class="nav-link">TESTING PLUGIN</a></li>';
+		
+		return true;
+	}
 }
 ?>
