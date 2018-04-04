@@ -208,10 +208,10 @@ $location = ltrim($config['sitePath'],"/");
 						<input type="hidden" name="friend" value="<?php echo $user['username']; ?>">
 						<button type="submit" class="btn btn-sm btn-warning"><?php echo $lang['removeFriend'];?></button>
 						<?php
-					} else {
+					} elseif($_SESSION['username'] !== $user['username']) {
 						?>
 						<input type="hidden" name="type" value="add">
-						<input type="hidden" name="friend" value="<?php echo $user['username']; ?>">
+						<input type="hidden" name="friend" value="<?php echo $userT['username']; ?>">
 						<button type="submit" class="btn btn-sm btn-primary"><?php echo $lang['addFriend'];?></button>
 						<?php
 					}
