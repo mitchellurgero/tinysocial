@@ -282,12 +282,14 @@ switch(cleanstring($_POST['type'])){
 		$user = array_values($user);
 		$user = $user[0];
 		$post_id = cleanstring($_POST['post_id']);
+		$comment_id = bin2hex(random_bytes(24));
 		//Do some more cleaning but for now:
 		$data = array(
 				"post"		=> cleanstring($_POST['data']),
 				"author"	=> $_SESSION['username'],
 				"date"		=> date('m-d-Y h:i:s a'),
 				"post_id"	=> $post_id,
+				"comment_id"=> $comment_id
 				);
 		//Before allowing comment, check that post exists.
 		$fatherPost = $db->select("posts","post_id",$post_id);

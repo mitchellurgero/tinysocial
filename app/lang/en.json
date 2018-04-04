@@ -68,6 +68,7 @@
 	"badUsername":"That username is invalid.",
 	"badPassword":"Please check that your password matches the rules.",
 	"likeError":"You cannot like the same post more than once!",
-	"likeSuccess":"You liked this post!"
+	"likeSuccess":"You liked this post!",
+	"anchorTxt":"Direct Link"
 	
 }

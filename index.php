@@ -358,7 +358,7 @@ $location = ltrim($config['sitePath'],"/");
 								$comments = $db->select("comments","post_id",$post['post_id'], false);
 								if(count($comments) > 0){
 									foreach($comments as $comment){
-										$tempUser = $db->select("users","username",$post['author']);
+										$tempUser = $db->select("users","username",$comment['author']);
 										$tempUser = array_values($tempUser);
 										$tempUser = $tempUser[0];
 										$byuser = '<a href="'.$config['sitePath'].'user/'.$comment['author'].'">'.$tempUser['name'].'</a>';
@@ -368,7 +368,8 @@ $location = ltrim($config['sitePath'],"/");
 									<div class="col-md-12">
 										<div class="card">
 											<div class="card-body">
-												<h4 class="card-title"><?php echo str_replace(array("%u","%d"),array($byuser,$bydate),$lang['commentBy']); ?></h4>
+												<a name="<?php echo $comment['comment_id'];?>"></a>
+												<h4 class="card-title"><?php echo str_replace(array("%u","%d"),array($byuser,$bydate),$lang['commentBy']); ?> <span class="float-right"><small><a href="#<?php echo $comment['comment_id'];?>"><i class="fa fa-link"></i></a></small></span></h4>
 												<p class="card-text"><?php echo $comment['post'];?></p>
 											</div>
 										</div>
