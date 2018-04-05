@@ -33,6 +33,18 @@ class ExamplePlugin extends Plugin{
 
 Called every time the API is called (Post, like, comment, change user setting, login, register) Can be used to restrict registrations as an example, or to bypass login to a different system (Like LDAP!)
 
+- ApiCustom(&$_SESSION, &$_POST)
+
+Called when an API type is either not specified or the called type does not exist in the standard API type list.
+
+- IndexCustom(&$_SESSION, &$args)
+
+Called when the index page cannot find a URI callback function (E.G. /user/username is called but /example/what does not exist so it is then called to this plugin)
+	
+	$args['type'] is first part of the URI /type
+	$args['page'] is the second part of the URI /type/page
+	$args['params'][] every other part of the URI /type/page/param[0]/param[1]/etc/etc
+
 - IndexApiLoad(&$args)
 
 Called every time the Index API is called (Load single post, load user profile, etc)

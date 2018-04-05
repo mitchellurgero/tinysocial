@@ -405,6 +405,7 @@ $location = ltrim($config['sitePath'],"/");
 					break;
 				default:
 					//oops! Not found!
+					Event::handle('IndexCustom',array(&$_SESSION, &$args));
 					break;
 			}
 		} else {

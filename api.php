@@ -393,6 +393,6 @@ switch(cleanstring($_POST['type'])){
 		}
 		break;
 	default:
-		
+		Event::handle('ApiCustom',array(&$_SESSION,&$_POST));
 		break;
 }
