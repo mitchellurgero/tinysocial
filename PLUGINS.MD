@@ -68,3 +68,7 @@ End of body, good for adding Javascript, or other data to pages.
 - PageLoad(&$_SESSION, &$_POST)
 
 start of page load
+
+- PageEnd(&$_SESSION, &$_POST)
+
+End of page load

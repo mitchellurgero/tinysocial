@@ -45,7 +45,9 @@ if(empty($elements[0])) {
     $args['page'] = "home";
 } else {
 	$args['type'] = $elements[0];
-	$args['page'] = $elements[1];
+	if(isset($elements[1])){
+		$args['page'] = $elements[1];
+	}
 	if(count($elements) > 2){
 		$args['params'] = array_slice($elements, 2);
 	}
@@ -121,6 +123,7 @@ $location = ltrim($config['sitePath'],"/");
 		?>
 		<br>
 		<div class="container-fluid">
+		<?php Event::handle('PageLoad',array(&$_SESSION, &$_POST));?>
 		<?php
 		if($args['type']){
 			$type = cleanstring(str_replace(array(".."),array(""),$args['type']));
@@ -412,6 +415,7 @@ $location = ltrim($config['sitePath'],"/");
 			//404
 		}
 		?>
+		<?php Event::handle('PageEnd',array(&$_SESSION, &$_POST));?>
 		</div>
 <footer class="footer">
 	<div class="container">

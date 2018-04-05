@@ -1,5 +1,4 @@
 <?php if(!defined("TINY")){die();} ?>
-<?php Event::handle('PageLoad',array(&$_SESSION, &$_POST));?>
 <?php if(!isset($_SESSION['username'])) { die("<br>".$lang['notLoggedIn']); }?>
 <?php
 //Get current user infomation from db

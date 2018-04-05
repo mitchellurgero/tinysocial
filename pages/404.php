@@ -1,5 +1,4 @@
 <?php if(!defined("TINY")){die();} ?>
-<?php Event::handle('PageLoad',array(&$_SESSION, &$_POST));?>
 <br><br><br>
 <div class="row">
 	<div class="col-3">
