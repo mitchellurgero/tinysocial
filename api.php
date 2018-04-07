@@ -282,7 +282,7 @@ switch(cleanstring($_POST['type'])){
 		$user = array_values($user);
 		$user = $user[0];
 		$post_id = cleanstring($_POST['post_id']);
-		$comment_id = bin2hex(random_bytes(24));
+		$comment_id = bin2hex(random_bytes(16));
 		//Do some more cleaning but for now:
 		$data = array(
 				"post"		=> cleanstring($_POST['data']),
