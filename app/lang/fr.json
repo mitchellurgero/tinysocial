@@ -37,15 +37,6 @@
 	"passwordTxt":"Mot de passe",
 	"passwordTxt2":"Mot de passe (Encore)",
 	"registerFor":"S'inscrire &agrave;",
-	"col1":"Community Driven",
-	"col2":"Open Source",
-	"col3":"Pas de base de donn&eacute;es requis",
-	"col1icon":"fa-comments",
-	"col2icon":"fa-file-code",
-	"col3icon":"fa-hdd",
-	"col1desc":"Rejoignez la communaut&eacute; aujourd'hui pour faire partie d'une communaut&eacute; de personnes partageant les mêmes id&eacute;es!",
-	"col2desc":"Forkez nous sur <a href\"https://github.com/mitchellurgero/tinysocial\">GitHub</a> et d&eacute;marrez votre TinySocial!",
-	"col3desc":"Utilise <a href=\"https://github.com/mitchellurgero/jsondatabase\">la class JSONDatabase</a>, ce script PHP n'a pas besoin de base de donn&eacute;es MySQL",
 	"newAccountLink":"Besoin d'un compte?",
 	"pleaseSignIn":"Veuillez vous connecter",
 	"followSomeone":"Vous devrez suivre quelqu'un!",
@@ -69,5 +60,7 @@
 	"badPassword":"Veuillez v&eacute;rifier que votre mot de passe respecte les r&egrave;gles.",
 	"likeError":"Vous ne pouvez pas liker plusieurs fois le m&ecirc;me message!",
 	"likeSuccess":"Vous avez lik&eacute; ce message!",
-	"anchorTxt":"Lien direct"
+	"anchorTxt":"Lien direct",
+	"followSignup":"Inscrivez-vous aujourd'hui pour s'abonner à ",
+	"userNonExist":"Cet utilisateur n'existe pas sur ce serveur."
 }
