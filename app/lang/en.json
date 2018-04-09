@@ -37,15 +37,6 @@
 	"passwordTxt":"Password",
 	"passwordTxt2":"Password (Again)",
 	"registerFor":"Register for",
-	"col1":"Community Driven",
-	"col2":"Open Source",
-	"col3":"No Database Required",
-	"col1icon":"fa-comments",
-	"col2icon":"fa-file-code",
-	"col3icon":"fa-hdd",
-	"col1desc":"Join the community today to become part of a community of like-minded people!",
-	"col2desc":"Fork us on <a href=\"https://github.com/mitchellurgero/tinysocial\">GitHub</a> and run your own TinySocial!",
-	"col3desc":"Using the <a href=\"https://github.com/mitchellurgero/jsondatabase\">JSONDatabase class</a>, this PHP script doesn't need any database server.",
 	"newAccountLink":"Need an account?",
 	"pleaseSignIn":"Please Sign In",
 	"followSomeone":"You should follow someone!",
@@ -69,6 +60,8 @@
 	"badPassword":"Please check that your password matches the rules.",
 	"likeError":"You cannot like the same post more than once!",
 	"likeSuccess":"You liked this post!",
-	"anchorTxt":"Direct Link"
+	"anchorTxt":"Direct Link",
+	"followSignup":"Sign up today in order to follow ",
+	"userNonExist":"That user does not exist on this server."
 	
 }

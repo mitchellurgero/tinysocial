@@ -9,10 +9,28 @@ $config = array(
 	"timezone"			=> "America/Chicago",								// set site default timezone (Important for timestamping!)
 	"registration"		=> true,											// Allow registration
 	"defaultLang"		=> "en",											// Set default language
-	
+	"homeBody"			=> '
+	<div class="row text-center">
+	<div class="col-md-4">
+		<p><i class="fa fa-comments fa-5x"></i></p>
+		<p class="lead">Community Driven</p>
+		<p>Join the community today to become part of a community of like-minded people!</p>
+	</div>
+	<div class="col-md-4">
+		<p><i class="fa fa-file-code fa-5x"></i></p>
+		<p class="lead">Open Source</p>
+		<p>Fork us on <a href="https://github.com/mitchellurgero/tinysocial">GitHub</a> and run your own TinySocial!</p>
+	</div>
+	<div class="col-md-4">
+		<p><i class="fa fa-hdd fa-5x"></i></p>
+		<p class="lead">No Database Required</p>
+		<p>Using the <a href="https://github.com/mitchellurgero/jsondatabase">JSONDatabase class</a>, this PHP script doesn\'t need any database server.</p>
+	</div>
+</div>
+	',
 	"debug"				=> true,											// Enable debug (All error and Warning output)
 	);
 	
 	//Ability to add plugins to the system
 	//addPlugin("example"); //Plugin support not working ATM.
-	addPlugin("Shoutouts");
+	//addPlugin("Shoutouts");

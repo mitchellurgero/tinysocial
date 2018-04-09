@@ -8,23 +8,7 @@
 			<p><?php echo $config['siteDesc']; ?></p>
 		</div>
 		<br>
-		<div class="row text-center">
-			<div class="col-md-4">
-				<p><i class="fa <?php echo $lang['col1icon'];?> fa-5x"></i></p>
-				<p class="lead"><?php echo $lang['col1'];?></p>
-				<p><?php echo $lang['col1desc'];?></p>
-			</div>
-			<div class="col-md-4">
-				<p><i class="fa <?php echo $lang['col2icon'];?> fa-5x"></i></p>
-				<p class="lead"><?php echo $lang['col2'];?></p>
-				<p><?php echo $lang['col2desc'];?></p>
-			</div>
-			<div class="col-md-4">
-				<p><i class="fa <?php echo $lang['col3icon'];?> fa-5x"></i></p>
-				<p class="lead"><?php echo $lang['col3'];?></p>
-				<p><?php echo $lang['col3desc'];?></p>
-			</div>
-		</div>
+		<?php echo $config['homeBody']; ?>
 		<br>
 		<div class="row">
 			<div class="col-md-1">

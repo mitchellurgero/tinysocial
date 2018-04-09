@@ -139,13 +139,13 @@ $location = ltrim($config['sitePath'],"/");
 					break;
 				case "user":
 				//Get current user infomation from db
-				if(!isset($_SESSION['username'])){
-					echo "<br>".$lang['notLoggedIn'];
-					break;
-				}
 				$uname = cleanstring($args['page']);
 				$user = $db->select("users","username",$uname);
 				$user = array_values($user);
+				if(!isset($user[0])){
+					echo $lang['userNonExist'];
+					break;
+				}
 				$user = $user[0];
 				$ppic = "";
 				if(startsWith($user['profilePic'], "http://") || startsWith($user['profilePic'], "https://")){
@@ -199,7 +199,9 @@ $location = ltrim($config['sitePath'],"/");
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-				<form action="<?php echo $config['sitePath']."api.php"?>" method="POST">
+				<?php if(isset($_SESSION['username'])){
+					?>
+					<form action="<?php echo $config['sitePath']."api.php"?>" method="POST">
 					<?php
 					$userT = $db->select("users","username",$_SESSION['username']);
 					$userT = array_values($userT);
@@ -214,12 +216,19 @@ $location = ltrim($config['sitePath'],"/");
 					} elseif($_SESSION['username'] !== $user['username']) {
 						?>
 						<input type="hidden" name="type" value="add">
-						<input type="hidden" name="friend" value="<?php echo $userT['username']; ?>">
+						<input type="hidden" name="friend" value="<?php echo $user['username']; ?>">
 						<button type="submit" class="btn btn-sm btn-primary"><?php echo $lang['addFriend'];?></button>
 						<?php
 					}
 					?>
 				</form>
+					<?php
+				} else {
+					?>
+					<p class="lead text-center"><?php echo $lang['followSignup']."<code>".$user['username']."</code>"; ?></p>
+					<?php
+				}
+				?>
 			</div>
 		</div>
 	</div>
