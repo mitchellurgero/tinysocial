@@ -32,5 +32,5 @@ $config = array(
 	);
 	
 	//Ability to add plugins to the system
-	//addPlugin("example"); //Plugin support not working ATM.
+	//addPlugin("Example"); //Plugin support not working ATM.
 	//addPlugin("Shoutouts");
