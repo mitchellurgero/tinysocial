@@ -1,0 +1,20 @@
+{
+	"users": [
+		{
+			"username": "Administrator",
+			"password": "p@ssw0rd"
+		}
+	],
+	"posts": [
+		{
+			"id": 0,
+			"title": "Example Post Title",
+			"content": "This is a hello world post from JSONDatabase!"
+		}
+	],
+	"settings": [
+		{
+			"option": "value"
+		}
+	]
+}
