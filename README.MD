@@ -13,11 +13,11 @@ Self-hosting (VPS or private in house) is probably the best way to go.
 - [x] Registration (No Captcha yet!)
 - [x] Login
 - [x] Make a new post
-- [ ] Like a post
+- [x] Like a post
 - [x] Comment on a post
 - [x] Add/Remove friends
 - [x] Change user settings
-- [ ] Plugin Support (Coming soon!)
+- [x] Plugin Support
 - [x] Language support (Translations please!!!)
 
 
